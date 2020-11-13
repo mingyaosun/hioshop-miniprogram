@@ -109,8 +109,8 @@ page {
     
 }
 .catalog .cate .loading-wrap .img{
-    width: 60rpx;
-    height: 60rpx;
+    width: 130rpx;
+    height: 130rpx;
     margin-bottom: 20rpx;
 }
 .catalog .cate .loading-wrap .text{

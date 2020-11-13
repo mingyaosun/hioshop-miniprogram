@@ -36,7 +36,7 @@
         "compileType": "miniprogram",
         "libVersion": "2.9.4",
         "appid": "wxfd7957b1acc1b450",
-        "projectname": "%E6%B5%B7%E9%A3%8E%E5%B0%8F%E5%BA%97",
+        "projectname": "hioshop-miniprogram",
         "isGameTourist": false,
         "scripts": {
                 "beforeCompile": "",
