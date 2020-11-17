@@ -95,7 +95,7 @@
             <view class="more-category" data-cateid="{{item.id}}" bindtap="goCategory">点击查看更多{{item.name}}</view>
         </view>
     </view>
-    <view class="no-more-goods ">没有更多商品啦</view>
+    <view class="no-more-goods ">没有更多菜单啦</view>
 </view>
 <view class="loading" style="height:{{sysHeight}}px" wx:else>
     <image class="img" src="/images/icon/loading.gif"></image>

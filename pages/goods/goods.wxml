@@ -62,6 +62,41 @@
             </view>
         </view>
     </view>
+   <view class='details-wrap'>
+        <view class="title">商品评论</view>
+        <view wx:if="{{nocomment}}">
+        没有评论
+        </view>
+        <view class="">
+            <view wx:for="{{commentList}}" wx:key="id">
+                <view class="comment_boder" wx:if="{{!nocommentimg[item.id]}}">
+                    <view class='comment_content'>
+                        <image class='comment_touxiang' src="/images/icon/default_avatar_big.png"></image> 
+                        <view style="width:100rpx">
+                        <view class='comment_niname'>{{item.niname}}</view>
+                        </view> 
+                        <view style="width:500rpx">
+                        <view class='comment_body'>{{item.body}}</view>
+                        </view>                  
+                    </view>
+                    <view class="comment_img" wx:for="{{item.list}}" wx:key="id">
+                    <image data-src="{{item.url}}" src="{{item.url}}" class="comment_img_img" mode="widthFix"></image>
+                    </view>
+                </view>
+                <view class="comment_boder_noimg" wx:if="{{nocommentimg[item.id]}}">
+                    <view class='comment_content'>
+                        <image class='comment_touxiang' src="/images/icon/default_avatar_big.png"></image> 
+                        <view style="width:100rpx">
+                        <view class='comment_niname'>{{item.niname}}</view>
+                        </view> 
+                        <view style="width:500rpx">
+                        <view class='comment_body'>{{item.body}}</view>
+                        </view>                  
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
     <view class="attr-pop-box" hidden="{{!openAttr}}" bindtap='closeAttr'>
         <view class="attr-pop" catchtap="handleTap">
             <view class="close" catchtap="closeAttr">
@@ -69,7 +104,7 @@
             </view>
             <view class="img-info">
                 <view class="img-wrap">
-                    <image class="img" src="{{gallery[0].img_url}}"></image>
+                    <image class="img" src="{{gallerynow.img_url}}"></image>
                 </view>
                 <view class="info">
                     <view class='price-range' wx:if="{{priceChecked == false}}">
@@ -170,5 +205,5 @@
 </view>
 <view class="loading" style="height:{{sysHeight}}px" wx:else>
     <image class="img" src="/images/icon/loading.gif"></image>
-    <view class="text">菜单准备中</view>
+    <view class="text">正在寻找趣味</view>
 </view>

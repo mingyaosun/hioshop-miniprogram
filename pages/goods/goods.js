@@ -9,8 +9,10 @@ Page({
         id: 0,
         goods: {},
         gallery: [],
+        gallerynow:[],
         galleryImages:[],
         specificationList: [],
+        commentList: [],
         productList: [],
         cartGoodsCount: 0,
         checkedSpecPrice: 0,
@@ -24,11 +26,14 @@ Page({
         userId: 0,
         priceChecked: false,
         goodsNumber: 0,
+        goodsyl: 0,
         loading: 0,
         current: 0,
         showShareDialog:0,
         userInfo:{},
-        autoplay:true
+        autoplay:true,
+        nocomment:true,
+        nocommentimg:[]
     },
     hideDialog: function (e) {
         let that = this;
@@ -89,7 +94,7 @@ Page({
             imageUrl: image
         }
     },
-    onUnload: function() {},
+    onUnload: function() {getApp().data.isready=false;},
     handleTap: function(event) { //阻止冒泡 
     },
     getGoodsInfo: function() {
@@ -111,6 +116,27 @@ Page({
                         checkedSpecText: '请选择规格和数量'
                     });
                 }
+                let _commentList = res.data.commentList;
+                // 如果仅仅存在一种货品，那么商品页面初始化时默认checked
+                console.log(_commentList);
+                let nocommentimg=that.data.nocommentimg;
+                if (_commentList.length > 0) {
+                    that.setData({
+                        nocomment:false
+                    });
+                    for(var temp101=0;temp101<_commentList.length;temp101++){
+                        if(_commentList[temp101].list.length>0){
+                            console.log(_commentList[temp101].id);
+                            nocommentimg[_commentList[temp101].id+'']=false; 
+                        }else{
+                            nocommentimg[_commentList[temp101].id+'']=true; 
+                        }
+                    } 
+                    console.log(nocommentimg);
+                    that.setData({nocommentimg});
+                } else {
+
+                }
                 let galleryImages = [];
                 for (const item of res.data.gallery) {
                     galleryImages.push(item.img_url);
@@ -119,14 +145,16 @@ Page({
                     goods: res.data.info,
                     goodsNumber: res.data.info.goods_number,
                     gallery: res.data.gallery,
+                    gallerynow:res.data.gallery[0],
                     specificationList: res.data.specificationList,
+                    commentList:res.data.commentList,
                     productList: res.data.productList,
                     checkedSpecPrice: res.data.info.retail_price,
                     galleryImages: galleryImages,
                     loading:1
                 });
                 WxParse.wxParse('goodsDetail', 'html', res.data.info.goods_desc, that);
-                wx.setStorageSync('goodsImage', res.data.info.https_pic_url);
+                wx.setStorageSync('goodsImage', res.data.info.list_pic_url);
             }
             else{
                 util.showErrorToast(res.errmsg)
@@ -248,11 +276,13 @@ Page({
                 return;
             }
             let checkedProduct = checkedProductArray[0];
+            var _this=this;
             if (checkedProduct.goods_number < this.data.number) {
                 //找不到对应的product信息，提示没有库存
                 this.setData({
                     checkedSpecPrice: checkedProduct.retail_price,
                     goodsNumber: checkedProduct.goods_number,
+                    gallerynow:_this.data.gallery[checkedProduct.goods_yl],
                     soldout: true
                 });
                 wx.showToast({
@@ -262,12 +292,16 @@ Page({
                 return false;
             }
             if (checkedProduct.goods_number > 0) {
+                //var temp111=parseInt(checkedProduct.goods_yl);
+                //var that =this;
+                if(checkedProduct.goods_yl>_this.data.gallery.length){checkedProduct.goods_yl=1;}
                 this.setData({
                     checkedSpecPrice: checkedProduct.retail_price,
                     goodsNumber: checkedProduct.goods_number,
+                    gallerynow:_this.data.gallery[checkedProduct.goods_yl-1],
                     soldout: false
                 });
-
+                //console.log(checkedProduct);
                 var checkedSpecPrice = checkedProduct.retail_price;
 
             } else {
@@ -296,33 +330,48 @@ Page({
     onLoad: function(options) {
         let id = 0;
         var scene = decodeURIComponent(options.scene);
+        console.log(scene);
         if (scene != 'undefined') {
             id = scene;
         } else {
             id = options.id;
         }
+        console.log(id);
         this.setData({
             id: id, // 这个是商品id
             valueId: id,
         });
     },
     onShow: function() {
-        let userInfo = wx.getStorageSync('userInfo');
-        let info = wx.getSystemInfoSync();
-        let sysHeight = info.windowHeight - 100;
-        let userId = userInfo.id;
-        if (userId > 0) {
+        var that=this;
+        if(app.data.isready){
+            const aa = wx.createSelectorQuery();
+            aa.selectAll('.wxParse-img').boundingClientRect();
+            aa.exec(function (res) {
+                for(var i=0;i<res[0].length;i++){
+                    that.wxParseImgLoad2(res[0][i]);
+                }
+               })
+        }else{
+            let userInfo = wx.getStorageSync('userInfo');
+            let info = wx.getSystemInfoSync();
+            let sysHeight = info.windowHeight - 100;
+            let userId = userInfo.id;
+            if (userId > 0) {
+                this.setData({
+                    userId: userId,
+                    userInfo: userInfo,
+                });
+            }
             this.setData({
-                userId: userId,
-                userInfo: userInfo,
-            });
+                priceChecked: false,
+                sysHeight: sysHeight
+            })
+            this.getGoodsInfo();
+            this.getCartCount();
+            setTimeout(function(){getApp().data.isready=true;},1000);
         }
-        this.setData({
-            priceChecked: false,
-            sysHeight: sysHeight
-        })
-        this.getGoodsInfo();
-        this.getCartCount();
+
     },
     onHide:function(){
         this.setData({
