@@ -73,7 +73,6 @@ Page({
                     notice: res.data.notice,
                     loading: 1,
                 });
-                console.log(that.data.channel)
             }
         });
     },
