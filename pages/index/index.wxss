@@ -17,9 +17,10 @@
     flex-direction: column;
 }
 
+/* 修改动图大小 */
 .loading .img {
-    width: 150rpx;
-    height: 150rpx;
+    width: 260rpx;
+    height: 240rpx;
 }
 
 .loading .text {

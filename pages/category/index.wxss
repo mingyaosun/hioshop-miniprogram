@@ -108,9 +108,10 @@ page {
     align-items: center;
     
 }
+/* 修改动图大小 */
 .catalog .cate .loading-wrap .img{
-    width: 130rpx;
-    height: 130rpx;
+    width: 260rpx;
+    height: 240rpx;
     margin-bottom: 20rpx;
 }
 .catalog .cate .loading-wrap .text{

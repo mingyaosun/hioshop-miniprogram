@@ -120,7 +120,7 @@ Page({
                 // 如果仅仅存在一种货品，那么商品页面初始化时默认checked
                 console.log(_commentList);
                 let nocommentimg=that.data.nocommentimg;
-                if (_commentList.length > 0) {
+                if (_commentList && _commentList.length > 0) {
                     that.setData({
                         nocomment:false
                     });
