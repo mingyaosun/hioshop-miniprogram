@@ -107,5 +107,5 @@
 </view>
 <view class="loading" style="height:{{sysHeight}}px" wx:else>
     <image class="img" src="/images/icon/loading.gif"></image>
-    <view class="text">趣味探索中</view>
+    <view class="text">正在寻找趣味</view>
 </view>
