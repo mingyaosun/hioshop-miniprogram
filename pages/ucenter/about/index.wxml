@@ -2,14 +2,14 @@
     <view class='about-wrap'>
         <view class='title'>食趣坊</view>
         <view class='content'>
-            开源微信小程序商城
+            微信小程序
         </view>
         <view class="line"></view>
-        <view class="content">开发者：盛良</view>
-        <view class="content">微信：lookgxl</view>
+        <view class="content">开发者：吕布吉岛</view>
+        <view class="content">微信：Demmol</view>
         <view class="line"></view>
         <view class='content'>
-            更多信息访问：hiolabs.com
+            个人网站主页：https://www.sunmingyao.com
         </view>
     </view>
 </view>

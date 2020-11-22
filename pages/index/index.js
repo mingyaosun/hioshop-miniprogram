@@ -53,7 +53,7 @@ Page({
         let info = wx.getStorageSync('userInfo');
         return {
             title: '食趣坊',
-            desc: '开源微信小程序商城',
+            desc: '微信小程序',
             path: '/pages/index/index?id=' + info.id
         }
     },

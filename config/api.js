@@ -11,13 +11,13 @@ module.exports = {
     CatalogList: ApiRootUrl + 'catalog/index', //分类目录全部分类数据接口
     CatalogCurrent: ApiRootUrl + 'catalog/current', //分类目录当前分类数据接口
     GetCurrentList: ApiRootUrl + 'catalog/currentlist',
-    // 购物车
-    CartAdd: ApiRootUrl + 'cart/add', // 添加商品到购物车
-    CartList: ApiRootUrl + 'cart/index', //获取购物车的数据
-    CartUpdate: ApiRootUrl + 'cart/update', // 更新购物车的商品
-    CartDelete: ApiRootUrl + 'cart/delete', // 删除购物车的商品
+    // 收藏夹
+    CartAdd: ApiRootUrl + 'cart/add', // 添加商品到收藏夹
+    CartList: ApiRootUrl + 'cart/index', //获取收藏夹的数据
+    CartUpdate: ApiRootUrl + 'cart/update', // 更新收藏夹的商品
+    CartDelete: ApiRootUrl + 'cart/delete', // 删除收藏夹的商品
     CartChecked: ApiRootUrl + 'cart/checked', // 选择或取消选择商品
-    CartGoodsCount: ApiRootUrl + 'cart/goodsCount', // 获取购物车商品件数
+    CartGoodsCount: ApiRootUrl + 'cart/goodsCount', // 获取收藏夹商品件数
     CartCheckout: ApiRootUrl + 'cart/checkout', // 下单前信息确认
     // 商品
     GoodsCount: ApiRootUrl + 'goods/count', //统计商品总数

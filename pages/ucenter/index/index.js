@@ -95,4 +95,12 @@ Page({
             }
         });
     },
+    toExpress: function(e) {
+        let res = util.loginNow();
+        if (res == true) {
+            wx.navigateTo({
+                url: '/pages/kuaidiniao/index',
+            });
+        }
+    },
 })

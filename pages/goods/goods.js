@@ -438,7 +438,7 @@ Page({
                 openAttr: !that.data.openAttr
             });
             this.setData({
-                alone_text: '加入购物车'
+                alone_text: '加入收藏夹'
             })
         } else {
 
@@ -517,7 +517,7 @@ Page({
                 openAttr: !this.data.openAttr
             });
             that.setData({
-                alone_text: '加入购物车'
+                alone_text: '加入收藏夹'
             })
         } else {
             //提示选择完整规格
@@ -548,9 +548,9 @@ Page({
                 });
                 return false;
             }
-            //添加到购物车
+            //添加到收藏夹
             util.request(api.CartAdd, {
-                    addType: 1, // 0：正常加入购物车，1:立即购买，2:再来一单
+                    addType: 1, // 0：正常加入收藏夹，1:立即购买，2:再来一单
                     goodsId: this.data.id,
                     number: this.data.number,
                     productId: checkedProduct.id,

@@ -16,7 +16,7 @@
 							<view class="{{item.number >0 && item.is_on_sale == 1?'goods-title':'out-stock-title'}}">{{item.goods_name}}</view>
 							<view class="goods-label">{{item.goods_specifition_name_value}}</view>
 							<view class="goods-price">
-								<view class='price-now'>￥{{item.retail_price}}</view>
+								<view class='price-now'>{{item.retail_price}} 颗小红心</view>
 							</view>
 							<view class="selnum" wx:if="{{item.number > 0 && item.is_on_sale == 1}}">
 								<view data-item-index="{{index}}" class="cut" catchtap="cutNumber">-</view>
@@ -37,7 +37,7 @@
 		<view class='cart-empty-view'>
 			<image class='cart-empty' src='/images/icon/cart-empty.png'></image>
 		</view>
-		<view class='cart-empty-txt'>车里什么都没有，快去买一点吧</view>
+		<view class='cart-empty-txt'>收藏夹里什么都没有，快去逛逛吧</view>
 		<view class="to-index-btn" bindtap="toIndexPage">
 			去逛逛
 		</view>
@@ -50,9 +50,8 @@
 				<view class="text">全选({{cartTotal.checkedGoodsCount}})
 				</view>
 			</view>
-			<view class="total" hidden="">合计：¥{{cartTotal.checkedGoodsAmount}}</view>
+			<view class="total" hidden="">合计：{{cartTotal.checkedGoodsAmount}} 颗小红心</view>
 		</view>
-		<view class="to-pay-btn" hidden="" bindtap="checkoutOrder">去结算</view>
-		<!-- <view class="to-pay-btn" hidden="" bindtap="test">去结算</view>    -->
+		<!-- <view class="to-pay-btn" hidden="" bindtap="checkoutOrder">去结算</view> -->
 	</view>
 </view>

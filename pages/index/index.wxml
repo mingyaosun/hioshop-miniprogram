@@ -1,10 +1,10 @@
 <view class="container" wx:if="{{loading == 1}}">
-    <view class='contact-wrap'>
+    <!-- <view class='contact-wrap'>
         <button class="contact-btn" session-from='{"nickName":"{{userInfo.nickname}}","avatarUrl":"{{userInfo.avatar}}"}' open-type="contact">
             <image class='icon' src='/images/icon/contact.png'></image>
             <view class='text'>客服</view>
         </button>
-    </view>
+    </view> -->
     <view class="search" bindtap="goSearch">
         <image class="icon" src="/images/icon/search.png"></image>
         <text class="txt">搜索, 共{{goodsCount}}款好物</text>
@@ -107,5 +107,5 @@
 </view>
 <view class="loading" style="height:{{sysHeight}}px" wx:else>
     <image class="img" src="/images/icon/loading.gif"></image>
-    <view class="text">菜单准备中</view>
+    <view class="text">趣味探索中</view>
 </view>

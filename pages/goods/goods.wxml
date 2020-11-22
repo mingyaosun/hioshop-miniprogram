@@ -111,13 +111,13 @@
                         <!-- todo 原价不等于0的时候要补充 -->
                         <view class='retail-price'>
                             <view class='p-title'>零售价：</view>
-                            <view class='g-price'>{{goods.retail_price}}元</view>
+                            <view class='g-price'>{{goods.retail_price}} 颗小红心</view>
                         </view>
                     </view>
                     <view class='price-range' wx:elif="{{priceChecked == true}}">
                         <view class='retail-price'>
                             <view class='p-title'>零售价：</view>
-                            <view class='g-price'>{{checkedSpecPrice}}元</view>
+                            <view class='g-price'>{{checkedSpecPrice}} 颗小红心</view>
                         </view>
                     </view>
                     <view class="a" wx:if="{{productList.length>0}}">{{tmpSpecText}}</view>
@@ -155,20 +155,21 @@
                     </button>
                 </form>
             </view>
-            <button class='left-icon contact-button' session-from='{"nickName":"{{userInfo.nickname}}","avatarUrl":"{{userInfo.avatar}}"}' open-type="contact" show-message-card="true" hover-class="none">
+            <!-- <button class='left-icon contact-button' session-from='{"nickName":"{{userInfo.nickname}}","avatarUrl":"{{userInfo.avatar}}"}' open-type="contact" show-message-card="true" hover-class="none">
                 <image class='icon' src='/images/icon/chat.png'></image>
                 <view class='icon-text'>客服</view>
-            </button>
+            </button> -->
             <view class="left-icon" bindtap='openCartPage'>
                 <text class="cart-count">{{cartGoodsCount}}</text>
                 <image class='icon' src='/images/nav/icon-cart-b.png'></image>
-                <view class='icon-text'>购物车</view>
+                <view class='icon-text'>收藏夹</view>
             </view>
         </view>
         <block wx:if="{{goods.goods_number > 0 && goods.is_on_sale == 1}}">
             <block wx:if="{{goodsNumber > 0}}">
-                <view class="to-cart-btn" bindtap='addToCart'>加入购物车</view>
-                <view class="to-pay-btn" bindtap='fastToCart'>立即购买</view>
+                <!-- <view class="to-cart-btn" bindtap='addToCart'>加入收藏夹</view> -->
+                <!-- <view class="to-pay-btn" bindtap='fastToCart'>立即购买</view> -->
+                <view class="to-cart-coll" bindtap='addToCart'>加入收藏夹</view>
 
             </block>
             <block wx:if="{{goodsNumber <= 0 }}">

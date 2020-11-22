@@ -74,7 +74,7 @@ Page({
         });
     },
     isCheckedAll: function() {
-        //判断购物车商品已全选
+        //判断收藏夹商品已全选
         return this.data.cartGoods.every(function(element, index, array) {
             if (element.checked == true) {
                 return true;

@@ -744,6 +744,17 @@
     font-size: 32rpx;
     text-align: center;
 }
+/* 收藏夹样式 */
+.cart-add-box .to-cart-coll {
+    height: 110rpx;
+    width: 80%;
+    line-height: 100rpx;
+    color: #192841;
+    background: linear-gradient(to right, #f8cd4e, #fae277); /* 标准的语法（必须放在最后） */
+    font-size: 28rpx;
+    text-align: center;
+    font-weight: 500;
+}
 
 .cart-add-box .cart-empty {
     height: 110rpx;

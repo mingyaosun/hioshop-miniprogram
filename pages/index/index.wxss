@@ -19,7 +19,7 @@
 
 /* 修改动图大小 */
 .loading .img {
-    width: 260rpx;
+    width: 270rpx;
     height: 240rpx;
 }
 

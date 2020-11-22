@@ -154,7 +154,7 @@ class Wxml2Canvas {
     _saveCanvasToImage () {
         let self = this;       
 
-        // 延时保存有两个原因，一个是等待绘制delay的元素，另一个是安卓上样式会错乱
+        // 延时保存有两个原因，一个是等待绘制delay的颗小红心素，另一个是安卓上样式会错乱
         setTimeout(() => {
             self.progress(95);
 
@@ -513,7 +513,7 @@ class Wxml2Canvas {
             if(type === 'inline-text') {
                 width = item.maxWidth;
                 if(item.leftOffset + textWidth > width) {
-                    // 如果上一个行内元素换行了，这个元素要继续在后面补足一行
+                    // 如果上一个行内颗小红心素换行了，这个颗小红心素要继续在后面补足一行
                     let lineNum = Math.max(Math.floor(textWidth / width), 1);
                     let length = text.length;
                     let singleLength = Math.floor(length / lineNum);
@@ -895,7 +895,7 @@ class Wxml2Canvas {
                     return (a.left - b.left);
                 });
 
-                // 换行的行内元素left放到后面，version2.0.6后无法获取高度，改用bottom值来判断是否换行了
+                // 换行的行内颗小红心素left放到后面，version2.0.6后无法获取高度，改用bottom值来判断是否换行了
                 let position = -1;
                 for(let i = 0, len = list.length; i < len; i++) {
                     if(list[i] && list[i + 1]) {
@@ -955,7 +955,7 @@ class Wxml2Canvas {
             y: sub.top,
             progress: sub.progress,
             leftOffset: leftOffset,
-            maxWidth: maxWidth // 行内元素的最大宽度，取决于limit的宽度
+            maxWidth: maxWidth // 行内颗小红心素的最大宽度，取决于limit的宽度
         }
 
         if (sub.backgroundColor !== 'rgba(0, 0, 0, 0)') {
@@ -1144,7 +1144,7 @@ class Wxml2Canvas {
     _sortListByTop (list = []) {
         let sorted = {};
 
-        // 粗略地认为2px相差的元素在同一行
+        // 粗略地认为2px相差的颗小红心素在同一行
         list.forEach((item, index) => {
             let top = item.top;
             if (!sorted[top]) {
