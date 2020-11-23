@@ -40,8 +40,8 @@
     <view class='price-info'>
         <view class="l">
             <view class="now-price">
-                <view class="sym">¥</view>
-                <view class="num">{{goods.retail_price}}</view>
+                <!-- <view class="sym">¥</view> -->
+                <view class="num">{{goods.retail_price}} 颗小红心</view>
             </view>
         </view>
         <view class="r">

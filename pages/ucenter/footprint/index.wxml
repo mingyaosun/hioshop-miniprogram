@@ -23,7 +23,7 @@
                     <view class='price-container'>
                         <view class='l'>
                             <view class='no-level'>
-                                ￥{{iitem.goods.min_retail_price}}
+                                {{iitem.goods.min_retail_price}} 颗小红心
                             </view>
                         </view>
                     </view>

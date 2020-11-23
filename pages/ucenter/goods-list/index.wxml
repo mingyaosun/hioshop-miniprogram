@@ -12,7 +12,7 @@
                     </view>
                     <view class='info-bottom'>
                         <view class='left'>
-                            <view class='goods-price'>¥{{item.retail_price}}</view>
+                            <view class='goods-price'>{{item.retail_price}}  颗小红心</view>
                             <view class='goods-num'>× {{item.number}}</view>
                         </view>
                     </view>

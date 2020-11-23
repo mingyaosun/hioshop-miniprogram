@@ -37,7 +37,7 @@
                                 <view class="goods-intro">{{item.goods_brief}}</view>
                                 <view class='price-container'>
                                     <view class='l'>
-                                        <view class='h'>￥{{item.min_retail_price}}</view>
+                                        <view class='h'>{{item.min_retail_price}} 颗小红心</view>
                                     </view>
                                 </view>
                             </view>
