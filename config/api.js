@@ -52,6 +52,6 @@ module.exports = {
     ShowSettings: ApiRootUrl + 'settings/showSettings',
     SaveSettings: ApiRootUrl + 'settings/save',
     SettingsDetail: ApiRootUrl + 'settings/userDetail',
-    GetBase64: ApiRootUrl + 'qrcode/getBase64', //获取商品详情二维码
+    GetBase64: ApiRootUrl + 'qrcode/getBase64', //获取详情二维码
 
 };

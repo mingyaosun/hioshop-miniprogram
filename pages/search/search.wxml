@@ -84,7 +84,7 @@
                 </view>
             </view>
         </view>
-        <view class='no-more'>没有更多商品了</view>
+        <view class='no-more'>没有更多趣味了</view>
     </view>
 
     <view class="search-result-empty" wx:if="{{!goodsList.length && searchStatus}}">

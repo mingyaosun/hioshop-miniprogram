@@ -41,8 +41,8 @@
                 <view class='icon-text'>{{item.name}}</view>
             </view>
         </swiper-item>
-        <swiper-item class="first" wx:if="{{channel.length > 6}}">
-            <view wx:for="{{channel}}" wx:if="{{item.sort_order > 6 && item.sort_order < 12}}" wx:key="id" class='icon-navi' data-cateid="{{item.id}}" bindtap="goCategory">
+        <swiper-item class="first1" wx:if="{{channel.length >= 6}}">
+            <view wx:for="{{channel}}" wx:if="{{item.sort_order >= 6 && item.sort_order < 12}}" wx:key="id" class='icon-navi1' data-cateid="{{item.id}}" bindtap="goCategory">
                 <image class='icon-img' src="{{item.icon_url}}"></image>
                 <view class='icon-text'>{{item.name}}</view>
             </view>

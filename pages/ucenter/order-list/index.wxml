@@ -61,6 +61,6 @@
 				<view class="dele-btn">查看详情</view>
 			</view>
 		</view>
-		<view wx:if="{{showTips}}" class="no-more-goods">没有更多商品啦</view>
+		<view wx:if="{{showTips}}" class="no-more-goods">没有更多趣味啦</view>
 	</view>
 </view>

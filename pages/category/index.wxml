@@ -2,7 +2,7 @@
     <view class="search">
         <navigator url="/pages/search/search" class="input">
             <image class="icon" src="/images/icon/search.png"></image>
-            <text class="txt">搜索, 共{{goodsCount}}款好味</text>
+            <text class="txt">搜索, 共{{goodsCount}}项趣味</text>
         </navigator>
     </view>
     <view class="catalog">
@@ -45,7 +45,7 @@
                     </view>
                 </view>
                 <view class="show-more" bindtap="onBottom" wx:if="{{showNoMore == 1}}">加载更多</view>
-                <view class="no-more" wx:else>没有更多商品了</view>
+                <view class="no-more" wx:else>没有更多趣味了</view>
             </block>
             <block wx:else>
                 <view class="loading-wrap">

@@ -505,9 +505,11 @@
 }
 
 .details-image-wrap {
-    width: 100%;
+    width: 90%;
     height: auto;
     overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .details-image-wrap .show-detail {

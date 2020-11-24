@@ -54,7 +54,7 @@
         <view class="arrow"></view>
     </view>
     <view class='details-wrap'>
-        <view class="title">商品详情</view>
+        <view class="title">详情</view>
         <view class="show">
             <view class='details-image-wrap'>
                 <import src="../../lib/wxParse/wxParse.wxml" />
@@ -62,8 +62,8 @@
             </view>
         </view>
     </view>
-   <view class='details-wrap'>
-        <view class="title">商品评论</view>
+   <!-- <view class='details-wrap'>
+        <view class="title">评论</view>
         <view wx:if="{{nocomment}}">
         没有评论
         </view>
@@ -96,7 +96,7 @@
                 </view>
             </view>
         </view>
-    </view>
+    </view> -->
     <view class="attr-pop-box" hidden="{{!openAttr}}" bindtap='closeAttr'>
         <view class="attr-pop" catchtap="handleTap">
             <view class="close" catchtap="closeAttr">
@@ -110,13 +110,13 @@
                     <view class='price-range' wx:if="{{priceChecked == false}}">
                         <!-- todo 原价不等于0的时候要补充 -->
                         <view class='retail-price'>
-                            <view class='p-title'>零售价：</view>
+                            <view class='p-title'>爱心值：</view>
                             <view class='g-price'>{{goods.retail_price}} 颗小红心</view>
                         </view>
                     </view>
                     <view class='price-range' wx:elif="{{priceChecked == true}}">
                         <view class='retail-price'>
-                            <view class='p-title'>零售价：</view>
+                            <view class='p-title'>爱心值：</view>
                             <view class='g-price'>{{checkedSpecPrice}} 颗小红心</view>
                         </view>
                     </view>
