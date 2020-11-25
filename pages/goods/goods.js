@@ -33,7 +33,9 @@ Page({
         userInfo:{},
         autoplay:true,
         nocomment:true,
-        nocommentimg:[]
+        nocommentimg:[],
+        commentCount:0,
+        upCount:0
     },
     hideDialog: function (e) {
         let that = this;
@@ -122,7 +124,8 @@ Page({
                 let nocommentimg=that.data.nocommentimg;
                 if (_commentList && _commentList.length > 0) {
                     that.setData({
-                        nocomment:false
+                        nocomment:false,
+                        commentCount:util.transformUnit(_commentList.length)
                     });
                     for(var temp101=0;temp101<_commentList.length;temp101++){
                         if(_commentList[temp101].list.length>0){
@@ -401,7 +404,7 @@ Page({
     },
     openCommentPage:function(){
         wx.navigateTo({
-            url: '/pages/comment/comment',
+            url: '/pages/comment/comment?id='+this.data.id,
         });
     },
     goIndexPage: function() {

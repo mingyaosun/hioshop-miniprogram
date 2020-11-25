@@ -1,24 +1,47 @@
-<view class="container" wx:if="{{loading == 1}}">
-        <block>
-                <view class="comment-card">
-                        <view class='info-wrap'>
-                                <view class='l'>
-                                        <view class='goods-title'>11111</view>
-                                        <view class='goods-intro'>2222</view>
+<view class='details-wrap'>
+        <view class="title">评论</view>
+        <view wx:if="{{nocomment}}">
+                没有评论
+        </view>
+        <view class="">
+                <view wx:for="{{commentList}}" wx:key="id">
+                        <view class="comment_boder" wx:if="{{!nocommentimg[item.id]}}">
+                                <view class='comment_content'>
+                                        <image class='comment_touxiang'
+                                                src="{{item.avatar == ''?'images/icon/default_avatar_big.png':item.avatar}}"
+                                                mode="aspectFit" binderror="errorImg" data-errorimg="{{index}}">
+                                        </image>
+                                        <view style="width:80%">
+                                                <view class='comment_niname'>{{item.niname}}</view>
+                                        </view>
+
                                 </view>
-                        </view>
-                        <view class='price-info'>
-                                <view class="l">
-                                        <view class="now-price">
-                                                <view class="num">浏览 47 次</view>
+                                <view style="width:80%">
+                                        <view class='comment_body'>{{item.body}}</view>
+                                </view>
+                                <view class="comment_img_row">
+                                        <view class="comment_img" wx:for="{{item.list}}" wx:key="id">
+                                                <image data-src="{{item.url}}" src="{{item.url}}"
+                                                        class="comment_img_img" mode="widthFix"></image>
                                         </view>
                                 </view>
-                                <view class="r">
-                                        <view class='stock'>库存</view>
-                                        <view class='sales'>已售份</view>
+
+                        </view>
+                        <view class="comment_boder_noimg" wx:if="{{nocommentimg[item.id]}}">
+                                <view class='comment_content'>
+                                        <image class='comment_touxiang'
+                                                src="{{item.avatar == ''?'images/icon/default_avatar_big.png':item.avatar}}"
+                                                mode="aspectFit" binderror="errorImg" data-errorimg="{{index}}">
+                                        </image>
+                                        <view style="width:80%">
+                                                <view class='comment_niname'>{{item.niname}}</view>
+                                        </view>
+
+                                </view>
+                                <view style="width:80%">
+                                        <view class='comment_body'>{{item.body}}</view>
                                 </view>
                         </view>
                 </view>
-
-        </block>
+        </view>
 </view>

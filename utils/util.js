@@ -67,7 +67,7 @@ function testMobile(num) {
  * 封封微信的的request
  */
 function request(url, data = {}, method = "GET") {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         wx.request({
             url: url,
             data: data,
@@ -76,7 +76,7 @@ function request(url, data = {}, method = "GET") {
                 'Content-Type': 'application/json',
                 'X-Nideshop-Token': wx.getStorageSync('token')
             },
-            success: function(res) {
+            success: function (res) {
                 if (res.statusCode == 200) {
 
                     if (res.data.errno == 401) {
@@ -114,7 +114,7 @@ function request(url, data = {}, method = "GET") {
                 }
 
             },
-            fail: function(err) {
+            fail: function (err) {
                 reject(err)
             }
         })
@@ -125,12 +125,12 @@ function request(url, data = {}, method = "GET") {
  * 检查微信会话是否过期
  */
 function checkSession() {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         wx.checkSession({
-            success: function() {
+            success: function () {
                 resolve(true);
             },
-            fail: function() {
+            fail: function () {
                 reject(false);
             }
         })
@@ -141,9 +141,9 @@ function checkSession() {
  * 调用微信登录
  */
 function login() {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         wx.login({
-            success: function(res) {
+            success: function (res) {
                 if (res.code) {
                     //登录远程服务器
                     resolve(res);
@@ -151,7 +151,7 @@ function login() {
                     reject(res);
                 }
             },
-            fail: function(err) {
+            fail: function (err) {
                 reject(err);
             }
         });
@@ -159,13 +159,13 @@ function login() {
 }
 
 function getUserInfo() {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         wx.getUserInfo({
             withCredentials: true,
-            success: function(res) {
+            success: function (res) {
                 resolve(res);
             },
-            fail: function(err) {
+            fail: function (err) {
                 reject(err);
             }
         })
@@ -222,12 +222,12 @@ function sentRes(url, data, method, fn) {
             'Trackingmore-Api-Key': '1b70c67e-d191-4301-9c05-a50436a2526d'
         }
     };
-    var req = require(isHttp ? 'http' : 'https').request(options, function(res) {
+    var req = require(isHttp ? 'http' : 'https').request(options, function (res) {
         var _data = '';
-        res.on('data', function(chunk) {
+        res.on('data', function (chunk) {
             _data += chunk;
         });
-        res.on('end', function() {
+        res.on('end', function () {
             fn != undefined && fn(_data);
         });
     });
@@ -354,6 +354,24 @@ function getUid(prefix) {
     );
 }
 
+//数字单位转换
+function transformUnit(num) {
+    if (num) {
+        let numLength = num.toString().length;
+        if (numLength == 4 ) {
+            return num.toString().substring(0, 1) + 'k+'
+        } else if (numLength ==5) {
+            return num.toString().substring(0, 1) + 'w+'
+        }else if (numLength == 6) {
+            return num.toString().substring(0, 2) + 'w+'
+        } else {
+            return num.toString();
+        }
+    } else {
+        return 0;
+    }
+}
+
 
 module.exports = {
     formatTime: formatTime,
@@ -373,5 +391,6 @@ module.exports = {
     transferColor,
     transferPadding,
     transferBoxShadow,
-    getUid
+    getUid,
+    transformUnit
 }

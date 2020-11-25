@@ -165,12 +165,12 @@
                 <view class='icon-text'>收藏夹</view>
             </view>
             <view class="left-icon" bindtap='openCommentPage'>
-                <text class="cart-count">{{cartGoodsCount}}</text>
+                <text class="cart-count">{{upCount}}</text>
                 <image class='icon' src='/images/icon/up.png'></image>
                 <view class='icon-text'>点赞</view>
             </view>
             <view class="left-icon" bindtap='openCommentPage'>
-                <text class="cart-count">{{cartGoodsCount}}</text>
+                <text class="cart-count">{{commentCount}}</text>
                 <image class='icon' src='/images/icon/comment.png'></image>
                 <view class='icon-text'>评论</view>
             </view>
