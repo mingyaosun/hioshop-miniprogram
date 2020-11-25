@@ -118,7 +118,7 @@ Page({
                     },
                     {
                         type: 'text',
-                        content: '¥',
+                        content: '食趣坊：好吃，有趣',
                         fontSize: 18,
                         lineHeight: 16,
                         color: '#e93237',
@@ -130,20 +130,20 @@ Page({
                         // breakWord: true,
                         // bolder: true
                     },
-                    {
-                        type: 'text',
-                        content: goods.retail_price,
-                        fontSize: 30,
-                        lineHeight: 30,
-                        color: '#e93237',
-                        textAlign: 'left',
-                        top: 410,
-                        left: 50,
-                        width: 200,
-                        MaxLineNumber: 1,
-                        // breakWord: true,
-                        // bolder: true
-                    },
+                    // {
+                    //     type: 'text',
+                    //     content: goods.retail_price,
+                    //     fontSize: 30,
+                    //     lineHeight: 30,
+                    //     color: '#e93237',
+                    //     textAlign: 'left',
+                    //     top: 410,
+                    //     left: 50,
+                    //     width: 200,
+                    //     MaxLineNumber: 1,
+                    //     // breakWord: true,
+                    //     // bolder: true
+                    // },
                     {
                         type: 'image',
                         url: qrcodeUrl,

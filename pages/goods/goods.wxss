@@ -562,7 +562,7 @@
     justify-content: space-around;
     background: #fafafa;
     padding: 0 20rpx;
-    width: 40%;
+    width: 45%;
     box-sizing: border-box;
 }
 
@@ -749,7 +749,7 @@
 /* 收藏夹样式 */
 .cart-add-box .to-cart-coll {
     height: 110rpx;
-    width: 80%;
+    width: 55%;
     line-height: 100rpx;
     color: #192841;
     background: linear-gradient(to right, #f8cd4e, #fae277); /* 标准的语法（必须放在最后） */

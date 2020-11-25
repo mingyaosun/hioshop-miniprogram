@@ -399,6 +399,11 @@ Page({
             url: '/pages/cart/cart',
         });
     },
+    openCommentPage:function(){
+        wx.navigateTo({
+            url: '/pages/comment/comment',
+        });
+    },
     goIndexPage: function() {
         wx.switchTab({
             url: '/pages/index/index',
