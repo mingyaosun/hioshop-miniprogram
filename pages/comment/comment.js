@@ -16,6 +16,11 @@ Page({
                 commentList: [],
                 nocomment: true,
                 nocommentimg: [],
+                sysHeight: 0,
+                page: 1,
+                size: 3,
+                total: 0,
+                triggered: false
         },
 
         /**
@@ -30,9 +35,12 @@ Page({
                 } else {
                         id = options.id;
                 }
+                let info = wx.getSystemInfoSync();
+                let sysHeight = info.windowHeight;
                 console.log(id);
                 this.setData({
                         id: id, // 这个是商品id
+                        sysHeight: sysHeight
                 });
 
         },
@@ -54,20 +62,23 @@ Page({
         getCommentInfo: function () {
                 let that = this;
                 util.request(api.GoodsDetail, {
-                        id: that.data.id
+                        id: that.data.id,
+                        page: this.data.page,
+                        size: this.data.size
                 }).then(function (res) {
                         if (res.errno === 0) {
-
-                                let _commentList = res.data.commentList;
-                                // 如果仅仅存在一种货品，那么商品页面初始化时默认checked
+                                that.data.page = res.data.commentList.currentPage;
+                                that.data.total = res.data.commentList.count;
+                                let _commentList = res.data.commentList.data;
                                 console.log(_commentList);
                                 let nocommentimg = that.data.nocommentimg;
                                 if (_commentList && _commentList.length > 0) {
                                         that.setData({
                                                 nocomment: false,
-                                                commentCount: util.transformUnit(_commentList.length)
+                                                commentCount: util.transformUnit(that.data.total)
                                         });
                                         for (var temp101 = 0; temp101 < _commentList.length; temp101++) {
+                                                _commentList[temp101].time = util.wl_changeTime(_commentList[temp101].time);
                                                 if (_commentList[temp101].list.length > 0) {
                                                         console.log(_commentList[temp101].id);
                                                         nocommentimg[_commentList[temp101].id + ''] = false;
@@ -80,10 +91,10 @@ Page({
                                 } else {
 
                                 }
-
                                 that.setData({
-                                        commentList: res.data.commentList,
-                                        loading: 1
+                                        commentList: _commentList,
+                                        loading: 1,
+                                        triggered: false
                                 });
                         }
                         else {
@@ -96,10 +107,9 @@ Page({
                         var errorImgIndex = e.target.dataset.errorimg; //获取错误图片循环的下标
                         this.data.commentList[errorImgIndex].avatar = '/images/icon/default_avatar_big.png';
                         this.setData({
-                                commentList:this.data.commentList
+                                commentList: this.data.commentList
                         })
                 }
-
         },
         /**
          * 生命周期函数--监听页面隐藏
@@ -116,24 +126,18 @@ Page({
         },
 
         /**
-         * 页面相关事件处理函数--监听用户下拉动作
+         * 出发下拉刷新
          */
-        onPullDownRefresh: function () {
-
-
+        onRefresh() {
+                this.setData({
+                        triggered: true,
+                        page: 1,
+                        size: 1
+                });
+                this.getCommentInfo();
         },
-
-        /**
-         * 页面上拉触底事件的处理函数
-         */
-        onReachBottom: function () {
-
-        },
-
-        /**
-         * 用户点击右上角分享
-         */
-        onShareAppMessage: function () {
-
+        loadMore(){
+                console.log(44444444444)
         }
+
 })

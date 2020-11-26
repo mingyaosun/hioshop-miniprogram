@@ -1,8 +1,20 @@
-.details-wrap {
-        /* width: 100%; */
-        background-color: #fff;
-        margin-bottom: 100rpx;
-        padding: 0 0 50rpx 0;
+page {
+        height: 100%;
+}
+
+.container {
+        background-color: #f8f8f8;
+        min-height: 100%;
+        align-items: stretch;
+        overflow-x: hidden;
+        position: relative;
+        width: 100%;
+}
+
+.comment_card {
+        background-color: white;
+        width: 90%;
+        margin: 20rpx auto;
 }
 
 .details-wrap .title {
@@ -46,24 +58,14 @@
 .comment_boder_noimg {
         border: 3rpx solid #faca82;
         border-radius: 10rpx;
-        width: 97%;
-        margin: 10rpx 10rpx 10rpx 10rpx;
 }
 
 .comment_boder {
         border: 3rpx solid #faca82;
         border-radius: 10rpx;
-        width: 97%;
-        margin: 10rpx 10rpx 10rpx 10rpx;
 }
 
 .comment_niname {
-        /* text-align:center;
-        flex-flow:row;
-        height: 200rpx;
-        line-height: 30rpx;
-        
-        margin-top: 25rpx; */
         font-size: 20rpx;
         margin-left: 25rpx;
 }
@@ -121,4 +123,27 @@
         margin-left: 20rpx;
         margin-bottom: 20rpx;
         margin-right: 20rpx;
+}
+
+.loading {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+}
+
+/* 修改动图大小 */
+.loading .img {
+        width: 260rpx;
+        height: 240rpx;
+}
+
+.loading .text {
+        margin-top: 20rpx;
+        width: 100%;
+        font-size: 24rpx;
+        color: #999;
+        text-align: center;
 }

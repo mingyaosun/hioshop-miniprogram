@@ -2,7 +2,7 @@
   "usingComponents": {
     
 },
-"enablePullDownRefresh": true,
+
 "backgroundColor": "#A9A9A9",
 "backgroundTextStyle": "dark",
   "navigationBarTitleText": "评论详情"

@@ -23,52 +23,65 @@
 }
 
 .comment_niname {
-    text-align:center;
+    /* text-align:center;
     flex-flow:row;
     height: 200rpx;
     line-height: 30rpx;
+    
+    margin-top: 25rpx; */
     font-size: 20rpx;
-    margin-top: 25rpx;
-    margin-left: 10rpx;
+    margin-left: 25rpx;
 }
+
 .comment_body {
-    text-align:left;
-    padding-right:30rpx;
-    flex-flow:row;
+    text-align: left;
+    padding-right: 30rpx;
+    flex-flow: row;
     height: 100rpx;
     line-height: 45rpx;
     font-size: 35rpx;
     margin-top: 10rpx;
     margin-left: 20rpx;
 }
+
 .comment_content {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    flex-flow:row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-flow: row;
     height: 128rpx;
     position: relative;
     margin-right: 10rpx;
 }
 
 .comment_touxiang {
-
     width: 85rpx;
     height: 85rpx;
     border-radius: 90rpx;
     margin-top: 10rpx;
-    margin-left: 10rpx;
+    margin-left: 25rpx;
 }
-.comment_img{
+
+.comment_img_row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.comment_img {
     margin-top: 20rpx;
-    margin-left: 20rpx;
+    padding-left: 20rpx;
     margin-bottom: 20rpx;
     margin-right: 20rpx;
+    width: 40%;
 }
+
 .comment_img_img {
     flex-direction: row;
-    justify-content: center; 
-    width:90%;
+    justify-content: center;
+    width: 90%;
     margin-top: 20rpx;
     margin-left: 20rpx;
     margin-bottom: 20rpx;
