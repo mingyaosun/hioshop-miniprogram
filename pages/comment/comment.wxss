@@ -1,3 +1,5 @@
+@import "/colorui/main.wxss";
+@import "/colorui/icon.wxss";
 page {
         height: 100%;
 }
@@ -66,7 +68,7 @@ page {
 }
 
 .comment_niname {
-        font-size: 20rpx;
+        font-size: 28rpx;
         margin-left: 25rpx;
 }
 
@@ -147,3 +149,11 @@ page {
         color: #999;
         text-align: center;
 }
+/* 没有更多  */
+
+.no-more-goods {
+        text-align: center;
+        font-size: 28rpx;
+        margin: 60rpx 0 30rpx 0;
+        color: #999;
+    }

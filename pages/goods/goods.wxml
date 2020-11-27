@@ -55,18 +55,15 @@
         <view class="t">{{checkedSpecText}}</view>
         <view class="arrow"></view>
     </view>
-    <view class='details-wrap'>
-        <view class="title">详情</view>
-        <view class="show">
-            <view class='details-image-wrap'>
-                <import src="../../lib/wxParse/wxParse.wxml" />
-                <template is="wxParse" data="{{wxParseData:goodsDetail.nodes}}" />
+    <view class='details-wrap' style="margin-bottom:20rpx">
+        <view class='section-nav'>
+            <view class="t">评论</view>
+            <view  wx:if="{{!nocomment}}" class="jump-comment"  bindtap='openCommentPage'>
+                <view class="t">查看全部 {{commentCount}} 条评论</view>
+                <view class="arrow" style="margin-left:10rpx"></view>
             </view>
         </view>
-    </view>
-    <view class='details-wrap'>
-        <view class="title">评论</view>
-        <view wx:if="{{nocomment}}">
+        <view wx:if="{{nocomment}}" class="no-more-goods ">
             没有更多评论
         </view>
         <view class="">
@@ -74,7 +71,7 @@
                 <view class="comment_boder" wx:if="{{!nocommentimg[item.id]}}">
                     <view class='comment_content'>
                         <image class='comment_touxiang'
-                            src="{{item.avatar == ''?'images/icon/default_avatar_big.png':item.avatar}}"
+                            src="{{(item.avatar == '' || item.avatar == null )?'images/icon/default_avatar_big.png':item.avatar}}"
                             mode="aspectFit" binderror="errorImg" data-errorimg="{{index}}">
                         </image>
                         <view style="width:80%">
@@ -96,7 +93,7 @@
                 <view class="comment_boder_noimg" wx:if="{{nocommentimg[item.id]}}">
                     <view class='comment_content'>
                         <image class='comment_touxiang'
-                            src="{{item.avatar == ''?'images/icon/default_avatar_big.png':item.avatar}}"
+                            src="{{(item.avatar == '' || item.avatar == null )?'images/icon/default_avatar_big.png':item.avatar}}"
                             mode="aspectFit" binderror="errorImg" data-errorimg="{{index}}">
                         </image>
                         <view style="width:80%">
@@ -109,6 +106,15 @@
                         <view class='comment_body'>{{item.body}}</view>
                     </view>
                 </view>
+            </view>
+        </view>
+    </view>
+    <view class='details-wrap'>
+        <view class="title">详情</view>
+        <view class="show">
+            <view class='details-image-wrap'>
+                <import src="../../lib/wxParse/wxParse.wxml" />
+                <template is="wxParse" data="{{wxParseData:goodsDetail.nodes}}" />
             </view>
         </view>
     </view>
@@ -184,12 +190,12 @@
                 <view class='icon-text'>收藏夹</view>
             </view>
             <view class="left-icon" bindtap='openCommentPage'>
-                <text class="cart-count">{{upCount}}</text>
+                <!-- <text class="cart-count">{{upCount}}</text> -->
                 <image class='icon' src='/images/icon/up.png'></image>
                 <view class='icon-text'>点赞</view>
             </view>
-            <view class="left-icon" bindtap='openCommentPage'>
-                <text class="cart-count">{{commentCount}}</text>
+            <view class="left-icon" bindtap='openCommentAddPage'>
+                <!-- <text class="cart-count">{{commentCount}}</text> -->
                 <image class='icon' src='/images/icon/comment.png'></image>
                 <view class='icon-text'>评论</view>
             </view>

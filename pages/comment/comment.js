@@ -6,7 +6,6 @@ var timer = require('../../utils/wxTimer.js');
 var api = require('../../config/api.js');
 const user = require('../../services/user.js');
 Page({
-
         /**
          * 页面的初始数据
          */
@@ -17,10 +16,13 @@ Page({
                 nocomment: true,
                 nocommentimg: [],
                 sysHeight: 0,
-                page: 1,
-                size: 3,
-                total: 0,
-                triggered: false
+                currentPage: 1,
+                totalPages: 1,
+                size: 5,
+                totalCount: 0,
+                triggered: false,
+                hasMore: true,
+                textNoMore: '没有更多评论啦'
         },
 
         /**
@@ -29,7 +31,6 @@ Page({
         onLoad: function (options) {
                 let id = 0;
                 var scene = decodeURIComponent(options.scene);
-                console.log(scene);
                 if (scene != 'undefined') {
                         id = scene;
                 } else {
@@ -37,7 +38,6 @@ Page({
                 }
                 let info = wx.getSystemInfoSync();
                 let sysHeight = info.windowHeight;
-                console.log(id);
                 this.setData({
                         id: id, // 这个是商品id
                         sysHeight: sysHeight
@@ -63,38 +63,56 @@ Page({
                 let that = this;
                 util.request(api.GoodsDetail, {
                         id: that.data.id,
-                        page: this.data.page,
+                        page: this.data.currentPage,
                         size: this.data.size
                 }).then(function (res) {
                         if (res.errno === 0) {
-                                that.data.page = res.data.commentList.currentPage;
-                                that.data.total = res.data.commentList.count;
-                                let _commentList = res.data.commentList.data;
+                                let currentPage = res.data.commentList.currentPage;//当前页数
+                                let totalCount = res.data.commentList.count;//总条数
+                                let totalPages = res.data.commentList.totalPages;//总页数
+                                let _commentList = res.data.commentList.data;//返回数据条数
                                 console.log(_commentList);
                                 let nocommentimg = that.data.nocommentimg;
                                 if (_commentList && _commentList.length > 0) {
                                         that.setData({
                                                 nocomment: false,
-                                                commentCount: util.transformUnit(that.data.total)
+                                                commentCount: util.transformUnit(totalCount)
                                         });
                                         for (var temp101 = 0; temp101 < _commentList.length; temp101++) {
                                                 _commentList[temp101].time = util.wl_changeTime(_commentList[temp101].time);
                                                 if (_commentList[temp101].list.length > 0) {
-                                                        console.log(_commentList[temp101].id);
                                                         nocommentimg[_commentList[temp101].id + ''] = false;
                                                 } else {
                                                         nocommentimg[_commentList[temp101].id + ''] = true;
                                                 }
                                         }
-                                        console.log(nocommentimg);
                                         that.setData({ nocommentimg });
                                 } else {
 
                                 }
+                                if (currentPage == 1 && totalPages > 1) {
+                                        that.setData({
+                                                hasMore: true,
+                                                commentList: []
+                                        });
+                                } else if (currentPage == 1 && totalPages == 1) {
+                                        that.setData({
+                                                hasMore: false,
+                                                commentList: []
+                                        });
+                                } else if (currentPage == totalPages && currentPage > 1) {
+                                        that.setData({
+                                                hasMore: false
+                                        });
+                                }
+
+                                _commentList = that.data.commentList.concat(_commentList);
                                 that.setData({
                                         commentList: _commentList,
                                         loading: 1,
-                                        triggered: false
+                                        triggered: false,
+                                        currentPage: currentPage,
+                                        totalPages: totalPages
                                 });
                         }
                         else {
@@ -126,18 +144,36 @@ Page({
         },
 
         /**
-         * 出发下拉刷新
+         * 下拉刷新
          */
         onRefresh() {
                 this.setData({
                         triggered: true,
-                        page: 1,
-                        size: 1
+                        currentPage:1,
+                        size:5
                 });
                 this.getCommentInfo();
         },
-        loadMore(){
-                console.log(44444444444)
-        }
+        /**
+         * 上拉加载
+         */
+        loadMore() {
+                this.setData({
+                        currentPage: this.data.currentPage + 1
+                });
+                this.getCommentInfo();
+        },
+        ViewImage(e) {
+                let that = this;
+                let urlArr = [];
+                let urlList = that.data.commentList[e.currentTarget.dataset.imgindex].list;
+                urlList.forEach(element => {
+                        urlArr.push(element.url)
+                });
+                wx.previewImage({
+                        urls: urlArr,
+                        current: e.currentTarget.dataset.url
+                });
+        },
 
 })

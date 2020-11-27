@@ -29,7 +29,7 @@
     line-height: 30rpx;
     
     margin-top: 25rpx; */
-    font-size: 20rpx;
+    font-size: 28rpx;
     margin-left: 25rpx;
 }
 
@@ -1143,4 +1143,14 @@ button::after {
     font-size: 26rpx;
     height: 40rpx;
     line-height: 40rpx;
+}
+.no-more-goods {
+    text-align: center;
+    font-size: 28rpx;
+    margin:  0;
+    color: #999;
+}
+.jump-comment{
+    display: flex;
+    align-items: center;
 }

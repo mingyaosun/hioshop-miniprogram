@@ -20,7 +20,8 @@
                 "pages/ucenter/footprint/index",
                 "pages/payResult/payResult",
                 "pages/payOffline/index",
-                "pages/comment/comment"
+                "pages/comment/comment",
+                "pages/comment-add/comment-add"
         ],
         "window": {
                 "backgroundTextStyle": "light",

@@ -9,8 +9,8 @@ Page({
         id: 0,
         goods: {},
         gallery: [],
-        gallerynow:[],
-        galleryImages:[],
+        gallerynow: [],
+        galleryImages: [],
         specificationList: [],
         commentList: [],
         productList: [],
@@ -29,14 +29,14 @@ Page({
         goodsyl: 0,
         loading: 0,
         current: 0,
-        showShareDialog:0,
-        userInfo:{},
-        autoplay:true,
-        nocomment:true,
-        nocommentimg:[],
-        commentCount:0,
-        upCount:0,
-        total:0
+        showShareDialog: 0,
+        userInfo: {},
+        autoplay: true,
+        nocomment: true,
+        nocommentimg: [],
+        commentCount: 0,
+        upCount: 0,
+        total: 0
     },
     hideDialog: function (e) {
         let that = this;
@@ -44,7 +44,7 @@ Page({
             showShareDialog: false,
         });
     },
-    shareTo:function(){
+    shareTo: function () {
         let userInfo = wx.getStorageSync('userInfo');
         if (userInfo == '') {
             util.loginNow();
@@ -69,7 +69,7 @@ Page({
             urls: that.data.galleryImages // 需要预览的图片http链接列表  
         })
     },
-    bindchange: function(e) {
+    bindchange: function (e) {
         let current = e.detail.current;
         this.setData({
             current: current
@@ -81,12 +81,12 @@ Page({
             number: number
         });
     },
-    goIndex: function() {
+    goIndex: function () {
         wx.switchTab({
             url: '/pages/index/index',
         })
     },
-    onShareAppMessage: function(res) {
+    onShareAppMessage: function (res) {
         let id = this.data.id;
         let name = this.data.goods.name;
         let image = this.data.goods.list_pic_url;
@@ -97,14 +97,14 @@ Page({
             imageUrl: image
         }
     },
-    onUnload: function() {getApp().data.isready=false;},
-    handleTap: function(event) { //阻止冒泡 
+    onUnload: function () { getApp().data.isready = false; },
+    handleTap: function (event) { //阻止冒泡 
     },
-    getGoodsInfo: function() {
+    getGoodsInfo: function () {
         let that = this;
         util.request(api.GoodsDetail, {
             id: that.data.id
-        }).then(function(res) {
+        }).then(function (res) {
             if (res.errno === 0) {
                 let _specificationList = res.data.specificationList;
                 // 如果仅仅存在一种货品，那么商品页面初始化时默认checked
@@ -120,26 +120,26 @@ Page({
                     });
                 }
                 let _commentList = res.data.commentList.data;
-                that.data.total = res.data.commentList.count;
+                let totalCount = res.data.commentList.count;
                 // 如果仅仅存在一种货品，那么商品页面初始化时默认checked
                 console.log(_commentList);
-                let nocommentimg=that.data.nocommentimg;
+                let nocommentimg = that.data.nocommentimg;
                 if (_commentList && _commentList.length > 0) {
                     that.setData({
-                        nocomment:false,
-                        commentCount:util.transformUnit(that.data.total)
+                        nocomment: false,
+                        commentCount: util.transformUnit(totalCount)
                     });
-                    for(var temp101=0;temp101<_commentList.length;temp101++){
+                    for (var temp101 = 0; temp101 < _commentList.length; temp101++) {
                         _commentList[temp101].time = util.wl_changeTime(_commentList[temp101].time);
-                        if(_commentList[temp101].list.length>0){
+                        if (_commentList[temp101].list.length > 0) {
                             console.log(_commentList[temp101].id);
-                            nocommentimg[_commentList[temp101].id+'']=false; 
-                        }else{
-                            nocommentimg[_commentList[temp101].id+'']=true; 
+                            nocommentimg[_commentList[temp101].id + ''] = false;
+                        } else {
+                            nocommentimg[_commentList[temp101].id + ''] = true;
                         }
-                    } 
+                    }
                     console.log(nocommentimg);
-                    that.setData({nocommentimg});
+                    that.setData({ nocommentimg });
                 } else {
 
                 }
@@ -151,23 +151,23 @@ Page({
                     goods: res.data.info,
                     goodsNumber: res.data.info.goods_number,
                     gallery: res.data.gallery,
-                    gallerynow:res.data.gallery[0],
+                    gallerynow: res.data.gallery[0],
                     specificationList: res.data.specificationList,
-                    commentList:_commentList,
+                    commentList: _commentList,
                     productList: res.data.productList,
                     checkedSpecPrice: res.data.info.retail_price,
                     galleryImages: galleryImages,
-                    loading:1
+                    loading: 1
                 });
                 WxParse.wxParse('goodsDetail', 'html', res.data.info.goods_desc, that);
                 wx.setStorageSync('goodsImage', res.data.info.list_pic_url);
             }
-            else{
+            else {
                 util.showErrorToast(res.errmsg)
             }
         });
     },
-    clickSkuValue: function(event) {
+    clickSkuValue: function (event) {
         // goods_specification中的id 要和product中的goods_specification_ids要一样
         let that = this;
         let specNameId = event.currentTarget.dataset.nameId;
@@ -198,7 +198,7 @@ Page({
         //重新计算哪些值不可以点击
     },
     //获取选中的规格信息
-    getCheckedSpecValue: function() {
+    getCheckedSpecValue: function () {
         let checkedValues = [];
         let _specificationList = this.data.specificationList;
         let _checkedObj = {
@@ -216,37 +216,37 @@ Page({
         return checkedValues;
     },
     //根据已选的值，计算其它值的状态
-    setSpecValueStatus: function() {
+    setSpecValueStatus: function () {
 
     },
     //判断规格是否选择完整
-    isCheckedAllSpec: function() {
-        return !this.getCheckedSpecValue().some(function(v) {
+    isCheckedAllSpec: function () {
+        return !this.getCheckedSpecValue().some(function (v) {
             if (v.valueId == 0) {
                 return true;
             }
         });
     },
-    getCheckedSpecKey: function() {
-        let checkedValue = this.getCheckedSpecValue().map(function(v) {
+    getCheckedSpecKey: function () {
+        let checkedValue = this.getCheckedSpecValue().map(function (v) {
             return v.valueId;
         });
         return checkedValue.join('_');
     },
-    changeSpecInfo: function() {
+    changeSpecInfo: function () {
         let checkedNameValue = this.getCheckedSpecValue();
         this.setData({
             disabled: '',
             number: 1
         });
         //设置选择的信息
-        let checkedValue = checkedNameValue.filter(function(v) {
+        let checkedValue = checkedNameValue.filter(function (v) {
             if (v.valueId != 0) {
                 return true;
             } else {
                 return false;
             }
-        }).map(function(v) {
+        }).map(function (v) {
             return v.valueText;
         });
         if (checkedValue.length > 0) {
@@ -282,13 +282,13 @@ Page({
                 return;
             }
             let checkedProduct = checkedProductArray[0];
-            var _this=this;
+            var _this = this;
             if (checkedProduct.goods_number < this.data.number) {
                 //找不到对应的product信息，提示没有库存
                 this.setData({
                     checkedSpecPrice: checkedProduct.retail_price,
                     goodsNumber: checkedProduct.goods_number,
-                    gallerynow:_this.data.gallery[checkedProduct.goods_yl],
+                    gallerynow: _this.data.gallery[checkedProduct.goods_yl],
                     soldout: true
                 });
                 wx.showToast({
@@ -300,11 +300,11 @@ Page({
             if (checkedProduct.goods_number > 0) {
                 //var temp111=parseInt(checkedProduct.goods_yl);
                 //var that =this;
-                if(checkedProduct.goods_yl>_this.data.gallery.length){checkedProduct.goods_yl=1;}
+                if (checkedProduct.goods_yl > _this.data.gallery.length) { checkedProduct.goods_yl = 1; }
                 this.setData({
                     checkedSpecPrice: checkedProduct.retail_price,
                     goodsNumber: checkedProduct.goods_number,
-                    gallerynow:_this.data.gallery[checkedProduct.goods_yl-1],
+                    gallerynow: _this.data.gallery[checkedProduct.goods_yl - 1],
                     soldout: false
                 });
                 //console.log(checkedProduct);
@@ -324,8 +324,8 @@ Page({
             });
         }
     },
-    getCheckedProductItem: function(key) {
-        return this.data.productList.filter(function(v) {
+    getCheckedProductItem: function (key) {
+        return this.data.productList.filter(function (v) {
             if (v.goods_specification_ids == key) {
                 return true;
             } else {
@@ -333,7 +333,7 @@ Page({
             }
         });
     },
-    onLoad: function(options) {
+    onLoad: function (options) {
         let id = 0;
         var scene = decodeURIComponent(options.scene);
         console.log(scene);
@@ -348,17 +348,17 @@ Page({
             valueId: id,
         });
     },
-    onShow: function() {
-        var that=this;
-        if(app.data.isready){
+    onShow: function () {
+        var that = this;
+        if (app.data.isready) {
             const aa = wx.createSelectorQuery();
             aa.selectAll('.wxParse-img').boundingClientRect();
             aa.exec(function (res) {
-                for(var i=0;i<res[0].length;i++){
+                for (var i = 0; i < res[0].length; i++) {
                     that.wxParseImgLoad2(res[0][i]);
                 }
-               })
-        }else{
+            })
+        } else {
             let userInfo = wx.getStorageSync('userInfo');
             let info = wx.getSystemInfoSync();
             let sysHeight = info.windowHeight - 100;
@@ -375,18 +375,18 @@ Page({
             })
             this.getGoodsInfo();
             this.getCartCount();
-            setTimeout(function(){getApp().data.isready=true;},1000);
+            setTimeout(function () { getApp().data.isready = true; }, 1000);
         }
 
     },
-    onHide:function(){
+    onHide: function () {
         this.setData({
-            autoplay:false
+            autoplay: false
         })
     },
-    getCartCount: function() {
+    getCartCount: function () {
         let that = this;
-        util.request(api.CartGoodsCount).then(function(res) {
+        util.request(api.CartGoodsCount).then(function (res) {
             if (res.errno === 0) {
                 that.setData({
                     cartGoodsCount: res.data.cartTotal.goodsCount
@@ -394,47 +394,47 @@ Page({
             }
         });
     },
-    onPullDownRefresh: function() {
+    onPullDownRefresh: function () {
         wx.showNavigationBarLoading()
         this.getGoodsInfo();
         wx.hideNavigationBarLoading() //完成停止加载
         wx.stopPullDownRefresh() //停止下拉刷新
     },
-    openCartPage: function() {
+    openCartPage: function () {
         wx.switchTab({
             url: '/pages/cart/cart',
         });
     },
-    openCommentPage:function(){
+    openCommentPage: function () {
         wx.navigateTo({
-            url: '/pages/comment/comment?id='+this.data.id,
+            url: '/pages/comment/comment?id=' + this.data.id,
         });
     },
-    goIndexPage: function() {
+    goIndexPage: function () {
         wx.switchTab({
             url: '/pages/index/index',
         });
     },
-    switchAttrPop: function() {
+    switchAttrPop: function () {
         if (this.data.openAttr == false) {
             this.setData({
                 openAttr: !this.data.openAttr
             });
         }
     },
-    closeAttr: function() {
+    closeAttr: function () {
         this.setData({
             openAttr: false,
             alone_text: '单独购买'
         });
     },
-    goMarketing: function(e) {
+    goMarketing: function (e) {
         let that = this;
         that.setData({
             showDialog: !this.data.showDialog
         });
     },
-    addToCart: function() {
+    addToCart: function () {
         // 判断是否登录，如果没有登录，则登录
         util.loginNow();
         var that = this;
@@ -483,12 +483,12 @@ Page({
                 return false;
             }
             util.request(api.CartAdd, {
-                    addType: 0,
-                    goodsId: this.data.id,
-                    number: this.data.number,
-                    productId: checkedProduct.id
-                }, "POST")
-                .then(function(res) {
+                addType: 0,
+                goodsId: this.data.id,
+                number: this.data.number,
+                productId: checkedProduct.id
+            }, "POST")
+                .then(function (res) {
                     let _res = res;
                     if (_res.errno == 0) {
                         wx.showToast({
@@ -514,7 +514,7 @@ Page({
                 });
         }
     },
-    fastToCart: function() {
+    fastToCart: function () {
         // 判断是否登录，如果没有登录，则登录
         util.loginNow();
         let userInfo = wx.getStorageSync('userInfo');
@@ -561,12 +561,12 @@ Page({
             }
             //添加到收藏夹
             util.request(api.CartAdd, {
-                    addType: 1, // 0：正常加入收藏夹，1:立即购买，2:再来一单
-                    goodsId: this.data.id,
-                    number: this.data.number,
-                    productId: checkedProduct.id,
-                }, "POST")
-                .then(function(res) {
+                addType: 1, // 0：正常加入收藏夹，1:立即购买，2:再来一单
+                goodsId: this.data.id,
+                number: this.data.number,
+                productId: checkedProduct.id,
+            }, "POST")
+                .then(function (res) {
                     let _res = res;
                     if (_res.errno == 0) {
                         let id = that.data.id;
@@ -582,7 +582,7 @@ Page({
                 });
         }
     },
-    cutNumber: function() {
+    cutNumber: function () {
         this.setData({
             number: (this.data.number - 1 > 1) ? this.data.number - 1 : 1
         });
@@ -590,7 +590,7 @@ Page({
             disabled: ''
         });
     },
-    addNumber: function() {
+    addNumber: function () {
         this.setData({
             number: Number(this.data.number) + 1
         });
@@ -605,11 +605,27 @@ Page({
     },
     errorImg(e) {
         if (e.type == "error") {
-                var errorImgIndex = e.target.dataset.errorimg; //获取错误图片循环的下标
-                this.data.commentList[errorImgIndex].avatar = '/images/icon/default_avatar_big.png';
-                this.setData({
-                        commentList:this.data.commentList
-                })
+            var errorImgIndex = e.target.dataset.errorimg; //获取错误图片循环的下标
+            this.data.commentList[errorImgIndex].avatar = '/images/icon/default_avatar_big.png';
+            this.setData({
+                commentList: this.data.commentList
+            })
         }
-},
+    },
+    /**
+     * 添加评论
+     */
+    openCommentAddPage: function () {
+        // 判断是否登录，如果没有登录，则登录
+        util.loginNow();
+        let userInfo = wx.getStorageSync('userInfo');
+        if (userInfo == '') {
+            return false;
+        }
+        var that = this;
+        //跳转到评论页
+        wx.navigateTo({
+            url: '/pages/comment-add/comment-add?id='+that.data.id
+        });
+    }
 })

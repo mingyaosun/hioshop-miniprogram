@@ -1,13 +1,13 @@
 <view class="container" wx:if="{{loading == 1}}">
-        <scroll-view style="height:{{sysHeight}}px" class='details-wrap' refresher-enabled="{{true}}" scroll-y="true"
-                refresher-threshold="{{100}}" refresher-default-style="white" refresher-background="#a9a9a9"
-                refresher-triggered="{{triggered}}"  bindrefresherrefresh="onRefresh" bindscrolltolower="loadMore"
-               >
-                <view wx:for="{{commentList}}" wx:key="id" class="comment_card">
+        <scroll-view style="height:100vh" class='details-wrap' refresher-enabled="{{true}}" scroll-y="true"
+                lower-threshold="50" refresher-threshold="{{100}}" refresher-default-style="white"
+                refresher-background="#a9a9a9" refresher-triggered="{{triggered}}" bindrefresherrefresh="onRefresh"
+                bindscrolltolower="loadMore">
+                <view wx:for="{{commentList}}" wx:key="id" class="comment_card" wx:for-index="imgIndex">
                         <view class="comment_boder" wx:if="{{!nocommentimg[item.id]}}">
                                 <view class='comment_content'>
                                         <image class='comment_touxiang'
-                                                src="{{item.avatar == ''?'images/icon/default_avatar_big.png':item.avatar}}"
+                                                src="{{(item.avatar == '' || item.avatar == null )?'images/icon/default_avatar_big.png':item.avatar}}"
                                                 mode="aspectFit" binderror="errorImg" data-errorimg="{{index}}">
                                         </image>
                                         <view style="width:80%">
@@ -18,18 +18,28 @@
                                 <view style="width:80%">
                                         <view class='comment_body'>{{item.body}}</view>
                                 </view>
-                                <view class="comment_img_row">
+                                <view class="cu-form-group">
+                                        <view class="grid col-4 grid-square flex-sub">
+                                                <view class="bg-img" wx:for="{{item.list}}" wx:key="id"
+                                                        data-imgIndex="{{imgIndex}}" bindtap="ViewImage"
+                                                        data-url="{{item.url}}">
+                                                        <image data-src="{{item.url}}" src="{{item.url}}"
+                                                                mode='aspectFill'></image>
+                                                </view>
+                                        </view>
+                                </view>
+                                <!-- <view class="comment_img_row">
                                         <view class="comment_img" wx:for="{{item.list}}" wx:key="id">
                                                 <image data-src="{{item.url}}" src="{{item.url}}"
                                                         class="comment_img_img" mode="widthFix"></image>
                                         </view>
-                                </view>
+                                </view> -->
 
                         </view>
                         <view class="comment_boder_noimg" wx:if="{{nocommentimg[item.id]}}">
                                 <view class='comment_content'>
                                         <image class='comment_touxiang'
-                                                src="{{item.avatar == ''?'images/icon/default_avatar_big.png':item.avatar}}"
+                                                src="{{(item.avatar == '' || item.avatar == null )?'images/icon/default_avatar_big.png':item.avatar}}"
                                                 mode="aspectFit" binderror="errorImg" data-errorimg="{{index}}">
                                         </image>
                                         <view style="width:80%">
@@ -43,46 +53,7 @@
                                 </view>
                         </view>
                 </view>
-                <view wx:for="{{commentList}}" wx:key="id" class="comment_card">
-                        <view class="comment_boder" wx:if="{{!nocommentimg[item.id]}}">
-                                <view class='comment_content'>
-                                        <image class='comment_touxiang'
-                                                src="{{item.avatar == ''?'images/icon/default_avatar_big.png':item.avatar}}"
-                                                mode="aspectFit" binderror="errorImg" data-errorimg="{{index}}">
-                                        </image>
-                                        <view style="width:80%">
-                                                <view class='comment_niname'>{{item.niname}}</view>
-                                                <view class='comment_niname'>{{item.time}}</view>
-                                        </view>
-                                </view>
-                                <view style="width:80%">
-                                        <view class='comment_body'>{{item.body}}</view>
-                                </view>
-                                <view class="comment_img_row">
-                                        <view class="comment_img" wx:for="{{item.list}}" wx:key="id">
-                                                <image data-src="{{item.url}}" src="{{item.url}}"
-                                                        class="comment_img_img" mode="widthFix"></image>
-                                        </view>
-                                </view>
-
-                        </view>
-                        <view class="comment_boder_noimg" wx:if="{{nocommentimg[item.id]}}">
-                                <view class='comment_content'>
-                                        <image class='comment_touxiang'
-                                                src="{{item.avatar == ''?'images/icon/default_avatar_big.png':item.avatar}}"
-                                                mode="aspectFit" binderror="errorImg" data-errorimg="{{index}}">
-                                        </image>
-                                        <view style="width:80%">
-                                                <view class='comment_niname'>{{item.niname}}</view>
-                                                <view class='comment_niname'>{{item.time}}</view>
-                                        </view>
-
-                                </view>
-                                <view style="width:80%">
-                                        <view class='comment_body'>{{item.body}}</view>
-                                </view>
-                        </view>
-                </view>
+                <view class="no-more-goods " wx:if="{{!hasMore || nocomment}}">{{textNoMore}}</view>
                 <!-- <view wx:if="{{nocomment}}">
                 没有评论
                 </view> -->
