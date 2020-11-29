@@ -56,7 +56,7 @@
         <view class="arrow"></view>
     </view>
     <view class='details-wrap' style="margin-bottom:20rpx">
-        <view class='section-nav'>
+        <view class='section-nav ' style="margin-top:24rpx;">
             <view class="t">评论</view>
             <view  wx:if="{{!nocomment}}" class="jump-comment"  bindtap='openCommentPage'>
                 <view class="t">查看全部 {{commentCount}} 条评论</view>
@@ -66,48 +66,46 @@
         <view wx:if="{{nocomment}}" class="no-more-goods ">
             没有更多评论
         </view>
-        <view class="">
-            <view wx:for="{{commentList}}" wx:key="id">
-                <view class="comment_boder" wx:if="{{!nocommentimg[item.id]}}">
-                    <view class='comment_content'>
-                        <image class='comment_touxiang'
-                            src="{{(item.avatar == '' || item.avatar == null )?'images/icon/default_avatar_big.png':item.avatar}}"
-                            mode="aspectFit" binderror="errorImg" data-errorimg="{{index}}">
-                        </image>
-                        <view style="width:80%">
-                            <view class='comment_niname'>{{item.niname}}</view>
-                            <view class='comment_niname'>{{item.time}}</view>
+        <view wx:for="{{commentList}}" wx:key="id" wx:for-index="imgIndex">
+                        <view class="cu-card dynamic {{isCard?'no-card':''}}">
+                                <view class="cu-item shadow"style="margin:0rpx 0rpx 20rpx 0rpx" >
+                                        <view class="cu-list menu-avatar">
+                                                <view class="cu-item" >
+                                                        <view class="cu-avatar round lg"
+                                                                style="background-image:url({{(item.avatar == '' || item.avatar == null )?'/images/icon/default_avatar_big.png':item.avatar}});">
+                                                        </view>
+                                                        <view class="content flex-sub">
+                                                                <view>{{item.niname}}</view>
+                                                                <view class="text-gray text-sm flex justify-between">
+                                                                        {{item.time}}
+                                                                </view>
+                                                        </view>
+                                                </view>
+                                        </view>
+                                        <view class="text-content">
+                                                {{item.body}}
+                                        </view>
+                                        <view class="grid flex-sub padding-lr {{isCard?'col-3 grid-square':'col-1'}}">
+                                                <view class="cu-form-group" style="min-height:0rpx;padding:0rpx">
+                                                        <view class="grid col-4 grid-square flex-sub">
+                                                                <view class="bg-img" wx:for="{{item.list}}" wx:key="id"
+                                                                        data-imgIndex="{{imgIndex}}" bindtap="ViewImage"
+                                                                        data-url="{{item.url}}">
+                                                                        <image data-src="{{item.url}}"
+                                                                                src="{{item.url}}" mode='aspectFill'>
+                                                                        </image>
+                                                                </view>
+                                                        </view>
+                                                </view>
+                                        </view>
+                                        <!-- <view class="text-gray text-sm text-right ">
+                                                <text class="cuIcon-attentionfill margin-lr-xs"></text> 10
+                                                <text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
+                                                <text class="cuIcon-messagefill margin-lr-xs"></text> 30
+                                        </view> -->
+                                </view>
                         </view>
-                    </view>
-                    <view style="width:80%">
-                        <view class='comment_body'>{{item.body}}</view>
-                    </view>
-                    <view class="comment_img_row">
-                        <view class="comment_img" wx:for="{{item.list}}" wx:key="id">
-                            <image data-src="{{item.url}}" src="{{item.url}}" class="comment_img_img" mode="widthFix">
-                            </image>
-                        </view>
-                    </view>
-
                 </view>
-                <view class="comment_boder_noimg" wx:if="{{nocommentimg[item.id]}}">
-                    <view class='comment_content'>
-                        <image class='comment_touxiang'
-                            src="{{(item.avatar == '' || item.avatar == null )?'images/icon/default_avatar_big.png':item.avatar}}"
-                            mode="aspectFit" binderror="errorImg" data-errorimg="{{index}}">
-                        </image>
-                        <view style="width:80%">
-                            <view class='comment_niname'>{{item.niname}}</view>
-                            <view class='comment_niname'>{{item.time}}</view>
-                        </view>
-
-                    </view>
-                    <view style="width:80%">
-                        <view class='comment_body'>{{item.body}}</view>
-                    </view>
-                </view>
-            </view>
-        </view>
     </view>
     <view class='details-wrap'>
         <view class="title">详情</view>

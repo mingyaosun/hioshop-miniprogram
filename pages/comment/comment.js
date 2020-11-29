@@ -5,6 +5,7 @@ var util = require('../../utils/util.js');
 var timer = require('../../utils/wxTimer.js');
 var api = require('../../config/api.js');
 const user = require('../../services/user.js');
+import Dialog from '../../components/dialog/dialog';
 Page({
         /**
          * 页面的初始数据
@@ -22,6 +23,7 @@ Page({
                 totalCount: 0,
                 triggered: false,
                 hasMore: true,
+                isCard: true,
                 textNoMore: '没有更多评论啦'
         },
 
@@ -63,8 +65,8 @@ Page({
                 let that = this;
                 util.request(api.GoodsDetail, {
                         id: that.data.id,
-                        page: this.data.currentPage,
-                        size: this.data.size
+                        page: that.data.currentPage,
+                        size: that.data.size
                 }).then(function (res) {
                         if (res.errno === 0) {
                                 let currentPage = res.data.commentList.currentPage;//当前页数
@@ -149,8 +151,8 @@ Page({
         onRefresh() {
                 this.setData({
                         triggered: true,
-                        currentPage:1,
-                        size:5
+                        currentPage: 1,
+                        size: 5
                 });
                 this.getCommentInfo();
         },
@@ -175,5 +177,47 @@ Page({
                         current: e.currentTarget.dataset.url
                 });
         },
+        longPress(e) {
+                let that = this;
+                let cardId = e.currentTarget.id;//卡片id，即评论id
+                let publishId = e.currentTarget.dataset.publishid;//发布人id
+                let userInfo = wx.getStorageSync('userInfo');
+                let index = e.currentTarget.dataset.index;//index
+                if (userInfo && userInfo.id == publishId) {//已经登陆的情况下，可以删除当前长按的，自己发表的评论
+                        Dialog.confirm({
+                                title: '提示',
+                                message: '要删除这条评论吗？',
+                                asyncClose: true,
+                        }).then(() => {
+                                util.request(api.CommentDelete, {
+                                        cardId: cardId,
+                                        publishId: publishId
+                                }, "POST")
+                                        .then(function (res) {
+                                                let _res = res;
+                                                if (_res.errno == 0) {
+                                                        let oldCommentList = that.data.commentList;
+                                                        let newCommentList = oldCommentList.slice(0, index).concat(oldCommentList.slice(index + 1, oldCommentList.length));
+                                                        that.setData({
+                                                                commentList: newCommentList
+                                                        })
+                                                        Dialog.close();
+                                                } else {
+                                                        Dialog.close();
+                                                }
+
+                                        });
+                        }).catch(() => {
+                                Dialog.close();
+                        });
+                }
+
+                console.log('cardId====== ', cardId)
+                console.log('publishId====== ', publishId)
+                console.log('userInfo.id====== ', userInfo.id)
+                console.log('index====== ', index)
+
+
+        }
 
 })

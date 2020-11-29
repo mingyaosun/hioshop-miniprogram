@@ -154,6 +154,7 @@ page {
 .no-more-goods {
         text-align: center;
         font-size: 28rpx;
-        margin: 60rpx 0 30rpx 0;
+        margin: 40rpx 0 60rpx 0;
         color: #999;
     }
+   

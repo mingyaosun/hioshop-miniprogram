@@ -4,7 +4,7 @@ const user = require('../../services/user.js');
 
 //获取应用实例
 const app = getApp()
-
+const updateManager = wx.getUpdateManager();//监听版本更新
 Page({
     data: {
         floorGoods: [],
@@ -19,11 +19,11 @@ Page({
         imgurl: '',
         sysHeight: 0,
         loading: 0,
-        autoplay:true
+        autoplay: true
     },
-    onHide:function(){
+    onHide: function () {
         this.setData({
-            autoplay:false
+            autoplay: false
         })
     },
     goSearch: function () {
@@ -80,6 +80,7 @@ Page({
         let systemInfo = wx.getStorageSync('systemInfo');
         var scene = decodeURIComponent(options.scene);
         this.getCatalog();
+        this.checkForUpdate();
     },
     onShow: function () {
         this.getCartNum();
@@ -96,7 +97,7 @@ Page({
         let sysHeight = info.windowHeight - 100;
         this.setData({
             sysHeight: sysHeight,
-            autoplay:true
+            autoplay: true
         });
         wx.removeStorageSync('categoryId');
     },
@@ -142,4 +143,33 @@ Page({
         wx.hideNavigationBarLoading() //完成停止加载
         wx.stopPullDownRefresh() //停止下拉刷新
     },
+    //自动检测更新
+    checkForUpdate: function () {
+        let that = this;
+        updateManager.onCheckForUpdate(function (res) {
+            // 请求完新版本信息的回调
+            if (res.hasUpdate) {
+                updateManager.onUpdateReady(function () {
+                    wx.showModal({
+                        title: '更新提示',
+                        content: '新版本已经准备好，是否重启应用？',
+                        success: function (res) {
+                            if (res.confirm) {
+                                // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+                                updateManager.applyUpdate()
+                            }
+                        }
+                    })
+                })
+            }
+        });
+        updateManager.onUpdateFailed(function () {
+            // 新版本下载失败
+            wx.showModal({
+                title: '更新提示',
+                content: '新版本更新失败，请稍后重试'
+            });
+        });
+    },
+
 })

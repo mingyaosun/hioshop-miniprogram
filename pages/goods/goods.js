@@ -625,7 +625,7 @@ Page({
         var that = this;
         //跳转到评论页
         wx.navigateTo({
-            url: '/pages/comment-add/comment-add?id='+that.data.id
+            url: '/pages/comment-add/comment-add?id=' + that.data.id
         });
     }
 })

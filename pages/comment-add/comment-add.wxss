@@ -1,3 +1,20 @@
 /* pages/comment-add/comment-add.wxss */
 @import "/colorui/main.wxss";
 @import "/colorui/icon.wxss";
+
+page {
+ height: 100%;
+}
+
+.container {
+ background-color: #f8f8f8;
+ min-height: 100%;
+ align-items: stretch;
+ overflow-x: hidden;
+ position: relative;
+ width: 100%;
+}
+
+.comment-add-card {
+ padding: 60rpx 20rpx 20rpx 20rpx;
+}

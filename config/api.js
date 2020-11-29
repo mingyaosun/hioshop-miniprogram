@@ -1,4 +1,4 @@
-const ApiRootUrl = 'http://192.168.3.154:8360/api/';
+const ApiRootUrl = 'http://192.168.3.16:8360/api/';
 // const ApiRootUrl = 'https://www.sunmingyao.com:18360/api/';
 
 module.exports = {
@@ -23,7 +23,8 @@ module.exports = {
     GoodsDetail: ApiRootUrl + 'goods/detail', //获得商品的详情
     GoodsList: ApiRootUrl + 'goods/list', //获得商品列表
     GoodsShare: ApiRootUrl + 'goods/goodsShare', //获得商品的详情
-    SaveUserId: ApiRootUrl + 'goods/saveUserId',
+    SaveUserId: ApiRootUrl + 'goods/saveUserId',//保存用户id
+
     // 收货地址
     AddressDetail: ApiRootUrl + 'address/addressDetail', //收货地址详情
     DeleteAddress: ApiRootUrl + 'address/deleteAddress', //保存收货地址
@@ -52,5 +53,11 @@ module.exports = {
     SaveSettings: ApiRootUrl + 'settings/save',
     SettingsDetail: ApiRootUrl + 'settings/userDetail',
     GetBase64: ApiRootUrl + 'qrcode/getBase64', //获取详情二维码
+
+    //评论功能
+    GetQiniuToken: ApiRootUrl + 'index/getQiniuToken',//获得本地服务器图片上传的token
+    CommentDelete: ApiRootUrl + 'goods/deleteCommnets',//删除评论
+    CommentAdd: ApiRootUrl + 'goods/addComments',//添加评论
+
 
 };

@@ -358,11 +358,11 @@ function getUid(prefix) {
 function transformUnit(num) {
     if (num) {
         let numLength = num.toString().length;
-        if (numLength == 4 ) {
+        if (numLength == 4) {
             return num.toString().substring(0, 1) + 'k+'
-        } else if (numLength ==5) {
+        } else if (numLength == 5) {
             return num.toString().substring(0, 1) + 'w+'
-        }else if (numLength == 6) {
+        } else if (numLength == 6) {
             return num.toString().substring(0, 2) + 'w+'
         } else {
             return num.toString();
@@ -372,47 +372,68 @@ function transformUnit(num) {
     }
 }
 
-function  wl_changeTime(time) {
-    var dateTimeStamp=new Date(time).getTime()
+function wl_changeTime(time) {
+    var dateTimeStamp = new Date(time).getTime()
     var minute = 1000 * 60;
     var hour = minute * 60;
     var day = hour * 24;
-    
+
     var month = day * 30;
-    var year=month*12;
+    var year = month * 12;
     var now = new Date().getTime();
     var diffValue = now - dateTimeStamp;
-    var result=""
-    if(diffValue < 0) {
+    var result = ""
+    if (diffValue < 0) {
         return;
     }
-    
     var monthC = diffValue / month;
     var weekC = diffValue / (7 * day);
     var dayC = diffValue / day;
     var hourC = diffValue / hour;
     var minC = diffValue / minute;
-    var yearC=diffValue / year
-    if(yearC>=1){
-        return  "" + parseInt(yearC) + "年前";
+    var yearC = diffValue / year
+    if (yearC >= 1) {
+        return "" + parseInt(yearC) + "年前";
     }
-    if(monthC >= 1) {
+    if (monthC >= 1) {
         result = "" + parseInt(monthC) + "月前";
-    } else if(weekC >= 1) {
+    } else if (weekC >= 1) {
         result = "" + parseInt(weekC) + "周前";
-    } else if(dayC >= 1) {
+    } else if (dayC >= 1) {
         result = "" + parseInt(dayC) + "天前";
-    } else if(hourC >= 1) {
+    } else if (hourC >= 1) {
         result = "" + parseInt(hourC) + "小时前";
-    } else if(minC >= 1) {
+    } else if (minC >= 1) {
         result = "" + parseInt(minC) + "分钟前";
-    } else{
+    } else {
         result = "刚刚";
     }
-    
+
     return result;
 }
 
+function getUpLoadParam() {
+    let upLoadParm = {
+        imgToken: '',
+        upLoadUrl: ''
+    };
+    this.request(api.GetQiniuToken, {}).then(function (res) {
+        if (res.errno === 0) {
+            upLoadParm = {
+                imgToken: res.data.token,
+                upLoadHttps: res.data.url + 'upload.php'
+            }
+
+        } else {
+            util.showErrorToast(res.errmsg)
+        }
+    });
+    
+    return upLoadParm;
+}
+var emoji = {
+
+}
 module.exports = {
     formatTime: formatTime,
     formatTimeNum: formatTimeNum,
@@ -433,5 +454,6 @@ module.exports = {
     transferBoxShadow,
     getUid,
     transformUnit,
-    wl_changeTime
+    wl_changeTime,
+    getUpLoadParam
 }

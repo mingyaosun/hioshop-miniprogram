@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    
+    "van-dialog": "/components/dialog/index"
 },
 
 "backgroundColor": "#A9A9A9",

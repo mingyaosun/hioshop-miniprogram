@@ -1,4 +1,6 @@
 @import "../../lib/wxParse/wxParse.wxss";
+@import "/colorui/main.wxss";
+@import "/colorui/icon.wxss";
 
 /* page{
     height: 100%;
@@ -456,7 +458,7 @@
     align-items: center;
     margin: 24rpx 0;
     box-sizing: border-box;
-    /* border-bottom: 1rpx solid #eee; */
+    border-bottom: 1rpx solid #eee;
 }
 
 .section-nav .t {
@@ -476,7 +478,7 @@
     /* width: 100%; */
     background-color: #fff;
     margin-bottom: 100rpx;
-    padding: 0 0 50rpx 0;
+    /* padding: 0 0 50rpx 0; */
 }
 
 .details-wrap .title {
@@ -1154,3 +1156,6 @@ button::after {
     display: flex;
     align-items: center;
 }
+.details-wrap .show{
+    padding-bottom: 40rpx ;
+} 

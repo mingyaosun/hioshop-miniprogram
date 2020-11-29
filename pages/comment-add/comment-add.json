@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {},
+  "backgroundColor": "#A9A9A9",
+"backgroundTextStyle": "dark",
+  "navigationBarTitleText": "添加评论"
 }
