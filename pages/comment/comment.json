@@ -1,6 +1,10 @@
 {
   "usingComponents": {
-    "van-dialog": "/components/dialog/index"
+    "van-dialog": "/components/dialog/index",
+    "van-collapse": "/components/collapse/index",
+    "van-collapse-item": "/components/collapse-item/index",
+    "van-popup": "/components/popup/index"
+
 },
 
 "backgroundColor": "#A9A9A9",

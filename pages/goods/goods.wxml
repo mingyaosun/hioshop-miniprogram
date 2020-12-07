@@ -56,14 +56,14 @@
         <view class="arrow"></view>
     </view>
     <view class='details-wrap' style="margin-bottom:20rpx">
-        <view class='section-nav ' style="margin-top:24rpx;">
+        <view class='section-nav-comment ' >
             <view class="t">评论</view>
             <view  wx:if="{{!nocomment}}" class="jump-comment"  bindtap='openCommentPage'>
                 <view class="t">查看全部 {{commentCount}} 条评论</view>
                 <view class="arrow" style="margin-left:10rpx"></view>
             </view>
         </view>
-        <view wx:if="{{nocomment}}" class="no-more-goods ">
+        <view wx:if="{{nocomment}}" class="no-more-goods price-info">
             没有更多评论
         </view>
         <view wx:for="{{commentList}}" wx:key="id" wx:for-index="imgIndex">

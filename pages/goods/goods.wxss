@@ -460,6 +460,20 @@
     box-sizing: border-box;
     border-bottom: 1rpx solid #eee;
 }
+.section-nav-comment {
+    width: 100%;
+    height: 75rpx;
+    padding: 0 24rpx;
+    font-size: 30rpx;
+    line-height: 75rpx;
+    color: #233445;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    border-bottom: 1rpx solid #eee;
+}
 
 .section-nav .t {
     font-size: 28rpx;
@@ -1147,7 +1161,7 @@ button::after {
     line-height: 40rpx;
 }
 .no-more-goods {
-    text-align: center;
+    justify-content: center;
     font-size: 28rpx;
     margin:  0;
     color: #999;

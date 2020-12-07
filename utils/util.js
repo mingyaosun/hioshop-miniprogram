@@ -412,25 +412,6 @@ function wl_changeTime(time) {
     return result;
 }
 
-function getUpLoadParam() {
-    let upLoadParm = {
-        imgToken: '',
-        upLoadUrl: ''
-    };
-    this.request(api.GetQiniuToken, {}).then(function (res) {
-        if (res.errno === 0) {
-            upLoadParm = {
-                imgToken: res.data.token,
-                upLoadHttps: res.data.url + 'upload.php'
-            }
-
-        } else {
-            util.showErrorToast(res.errmsg)
-        }
-    });
-    
-    return upLoadParm;
-}
 var emoji = {
 
 }
@@ -454,6 +435,5 @@ module.exports = {
     transferBoxShadow,
     getUid,
     transformUnit,
-    wl_changeTime,
-    getUpLoadParam
+    wl_changeTime
 }

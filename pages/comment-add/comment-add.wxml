@@ -1,7 +1,7 @@
 <view class="container">
         <view class="comment-add-card">
                 <view class="cu-form-group ">
-                        <textarea auto-height="true" maxlength="200" disabled="{{modalName!=null}}"
+                        <textarea auto-height="true" maxlength="200" disabled="{{modalName!=null}}" show-confirm-bar="{{false}}"
                                 bindinput="textareaAInput" auto-focus="true" style="min-height:150rpx;max-height:500rpx;"
                                 placeholder="留下点什么吧（最多200字）"></textarea>
                 </view>

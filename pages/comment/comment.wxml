@@ -1,11 +1,12 @@
 <view class="container" wx:if="{{loading == 1}}">
         <scroll-view style="height:100vh" class='details-wrap' refresher-enabled="{{true}}" scroll-y="true"
-                lower-threshold="50" refresher-threshold="{{100}}" refresher-default-style="white" enable-back-to-top="true"
-                refresher-background="#a9a9a9" refresher-triggered="{{triggered}}" bindrefresherrefresh="onRefresh"
-                bindscrolltolower="loadMore">
+                lower-threshold="50" refresher-threshold="{{100}}" refresher-default-style="white"
+                enable-back-to-top="true" refresher-background="#a9a9a9" refresher-triggered="{{triggered}}"
+                bindrefresherrefresh="onRefresh" bindscrolltolower="loadMore">
                 <view wx:for="{{commentList}}" wx:key="id" wx:for-index="imgIndex">
-                        <!-- <view class="cu-card dynamic {{isCard?'no-card':''}}"> -->
-                        <view class="cu-card dynamic {{true?'no-card solids-bottom':''}}" bindlongpress="longPress" id="{{item.id}}" data-publishid="{{item.publish_id}}" data-index="{{imgIndex}}">
+                        <!-- <view class="cu-card dynamic {{isCard?'no-card solids-bottom':''}}"> -->
+                        <view class="cu-card dynamic {{false?'no-card solids-bottom':''}}" bindlongpress="longPress"
+                                id="{{item.id}}" data-publishid="{{item.publish_id}}" data-index="{{imgIndex}}">
                                 <view class="cu-item shadow">
                                         <view class="cu-list menu-avatar">
                                                 <view class="cu-item">
@@ -17,6 +18,10 @@
                                                                 <view class="text-gray text-sm flex justify-between">
                                                                         {{item.time}}
                                                                 </view>
+                                                        </view>
+                                                        <view class="text-gray text-xl text-right padding">
+                                                                <text class="cuIcon-appreciatefill margin-lr-xs"></text>
+                                                                20000
                                                         </view>
                                                 </view>
                                         </view>
@@ -30,24 +35,69 @@
                                                         bindtap="ViewImage" data-url="{{item.url}}">
                                                 </view>
                                         </view>
-                                        <view class="text-gray text-sm text-right padding">
-                                                <!-- <text class="cuIcon-attentionfill margin-lr-xs"></text> 10 -->
-                                                <text class="cuIcon-appreciatefill margin-lr-xs"></text> 20000
-                                                <text class="cuIcon-messagefill margin-lr-xs"></text> 300000
+                                        <view>
+                                                <view bindtap="showRound" class="text-gray text-sub text-right " data-com-comid="{{item.id}}" data-com-publishid="{{item.publish_id}}"
+                                                data-com-recipientid="{{item.recipient_id}}" data-com-parentid="{{item.parent_id}}"
+                                                        style="padding-right:30rpx;">
+                                                        <text class="cuIcon-messagefill margin-lr-sub"></text>
+                                                        回复
+                                                </view>
+                                                <van-collapse accordion value="{{ activeName }}"
+                                                        data-key="active{{imgIndex}}" class="padding-top-lr "
+                                                        bind:change="onChange">
+                                                        <van-collapse-item title="展开12条回复" name="active{{imgIndex}}" class="padd-line">
+                                                                <view class="cu-list menu-avatar">
+                                                                        <view class="cu-item">
+                                                                                <view class="cu-avatar round xs"
+                                                                                        style="background-image:url({{(item.avatar == '' || item.avatar == null )?'/images/icon/default_avatar_big.png':item.avatar}});">
+                                                                                </view>
+                                                                                <view class="content flex-sub text-xs"
+                                                                                        style="left:110rpx;">
+                                                                                        <view>{{item.niname}}</view>
+                                                                                        <view
+                                                                                                class="text-gray text-sm flex justify-between">
+                                                                                                {{item.time}}
+                                                                                        </view>
+                                                                                </view>
+                                                                                <view
+                                                                                        class="text-gray text-sm text-right padding">
+                                                                                        <text
+                                                                                                class="cuIcon-appreciatefill margin-lr-xs"></text>
+                                                                                        20000
+                                                                                </view>
+                                                                        </view>
+                                                                        <view class="text-content"
+                                                                                style="padding-left:30rpx;">
+                                                                                {{item.body}}
+                                                                        </view>
+                                                                </view>
+                                                        </van-collapse-item>
+                                                </van-collapse>
+
                                         </view>
                                 </view>
                         </view>
                 </view>
-
-                <view class="no-more-goods " wx:if="{{!hasMore || nocomment}}">{{textNoMore}}</view>
-                <!-- <view wx:if="{{nocomment}}">
-                没有评论
-                </view> -->
+                <view class="no-more-goods " wx:if="{{!hasMore && nocomment == 1 }}">{{textNoMore}}</view>
+                <view class="no-comment " wx:if="{{ nocomment == 0 }}">{{textNoMore}}</view>
         </scroll-view>
-        
+
 </view>
 <view class="loading" style="height:{{sysHeight}}px" wx:else>
         <image class="img" src="/images/icon/loading.gif"></image>
-        <view class="text">正在寻找趣味</view>
+        <view class="text">正在加载评论</view>
 </view>
 <van-dialog id="van-dialog" />
+<van-popup show="{{ show.round }}" round position="bottom" custom-style="height: 20%" bind:close="hideRound">
+        <view class="cu-form-group ">
+                <textarea  auto-height="true" maxlength="200" class="addComment" value="{{commentObj.comContext}}"
+                        style="min-height:150rpx;max-height:500rpx;" cursor-spacing='200px' bindinput="addComment"
+                        auto-focus="{{autoFocus}}" show-confirm-bar="{{false}}" placeholder="留下点什么吧（最多200字）"></textarea>
+                <view class="text-right" style="align-self:baseline;padding:0rpx 20rpx" bindtap="sendComment"
+                        class="{{(commentObj.comContext == '')?'no-allow':'allow'}}">
+                        <view class=" text-sl ">
+                                <image class="cu-avatar" src="{{(commentObj.comContext == '')?'/images/icon/send-grey.png':'/images/icon/send.png'}}" />
+                        </view>
+                </view>
+        </view>
+</van-popup>

@@ -141,7 +141,9 @@ Page({
                     console.log(nocommentimg);
                     that.setData({ nocommentimg });
                 } else {
-
+                    that.setData({
+                        nocomment: true,
+                    });
                 }
                 let galleryImages = [];
                 for (const item of res.data.gallery) {

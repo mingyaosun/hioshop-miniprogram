@@ -1,5 +1,6 @@
 @import "/colorui/main.wxss";
 @import "/colorui/icon.wxss";
+
 page {
         height: 100%;
 }
@@ -11,12 +12,6 @@ page {
         overflow-x: hidden;
         position: relative;
         width: 100%;
-}
-
-.comment_card {
-        background-color: white;
-        width: 90%;
-        margin: 20rpx auto;
 }
 
 .details-wrap .title {
@@ -149,6 +144,7 @@ page {
         color: #999;
         text-align: center;
 }
+
 /* 没有更多  */
 
 .no-more-goods {
@@ -156,5 +152,77 @@ page {
         font-size: 28rpx;
         margin: 40rpx 0 60rpx 0;
         color: #999;
-    }
-   
+}
+
+.no-comment {
+        text-align: center;
+        font-size: 28rpx;
+        padding-top: 240rpx;
+        margin-bottom: 40rpx;
+        color: #999;
+}
+
+.cu-card>.cu-item {
+        border-radius: 20rpx;
+        margin: 12rpx;
+}
+
+.van-hairline--top-bottom:after {
+        border-width: 0px !important;
+}
+
+.van-cell {
+        justify-content: flex-end;
+        padding: 30rpx 32rpx !important;
+}
+
+.van-cell__title,
+.van-cell__value {
+        display: contents;
+        padding: 30rpx 0;
+}
+
+.addComment {
+        min-height: 50rpx;
+        max-height: 500rpx;
+        text-align: left;
+        /* margin: 0rpx  30rpx; */
+}
+
+.cu-dialog {
+        border-top-left-radius: 2% !important;
+        border-top-right-radius: 2% !important;
+}
+
+.van-collapse-item__content {
+        padding: 0rpx 30rpx 30rpx 30rpx !important;
+}
+
+.cu-form-group {
+        background-color: var(--white);
+        padding: 30rpx 30rpx;
+        display: flex;
+        min-height: 100rpx;
+        justify-content: space-between;
+}
+
+.cu-avatar {
+        background-color: white;
+}
+
+/* 是否允许点击事件 */
+.allow {
+        pointer-events: auto;
+}
+
+.no-allow {
+        pointer-events: none;
+}
+
+/* .padd-line :before{
+        margin-top:20rpx;
+        content: '';                
+        background: #a19999;      
+        width: 5%;
+        height: 1px;  
+} */

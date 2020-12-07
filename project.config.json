@@ -1,73 +1,76 @@
 {
- "description": "项目配置文件。",
- "setting": {
-  "urlCheck": false,
-  "es6": true,
-  "enhance": false,
-  "postcss": true,
-  "preloadBackgroundData": false,
-  "minified": true,
-  "newFeature": true,
-  "coverView": true,
-  "nodeModules": true,
-  "autoAudits": false,
-  "showShadowRootInWxmlPanel": true,
-  "scopeDataCheck": false,
-  "uglifyFileName": false,
-  "checkInvalidKey": true,
-  "checkSiteMap": false,
-  "uploadWithSourceMap": true,
-  "compileHotReLoad": false,
-  "useMultiFrameRuntime": false,
-  "useApiHook": true,
-  "babelSetting": {
-   "ignore": [],
-   "disablePlugins": [],
-   "outputPath": ""
-  },
-  "useIsolateContext": true,
-  "useCompilerModule": true,
-  "userConfirmedUseCompilerModuleSwitch": false,
-  "packNpmManually": true,
-  "packNpmRelationList": [
-   {
-    "packageJsonPath": "./package.json",
-    "miniprogramNpmDistDir": "./"
-   }
-  ],
-  "minifyWXSS": true
- },
- "compileType": "miniprogram",
- "libVersion": "2.14.0",
- "appid": "wxfd7957b1acc1b450",
- "projectname": "hioshop-miniprogram",
- "isGameTourist": false,
- "scripts": {
-  "beforeCompile": "",
-  "beforePreview": "",
-  "beforeUpload": ""
- },
- "simulatorType": "wechat",
- "simulatorPluginLibVersion": {},
- "condition": {
-  "plugin": {
-   "list": []
-  },
-  "game": {
-   "list": []
-  },
-  "gamePlugin": {
-   "list": []
-  },
-  "miniprogram": {
-   "list": [
-    {
-     "name": "添加评论页",
-     "pathName": "pages/comment-add/comment-add",
-     "query": "",
-     "scene": null
-    }
-   ]
-  }
- }
+        "description": "项目配置文件。",
+        "setting": {
+                "urlCheck": false,
+                "es6": true,
+                "enhance": false,
+                "postcss": true,
+                "preloadBackgroundData": false,
+                "minified": true,
+                "newFeature": true,
+                "coverView": true,
+                "nodeModules": true,
+                "autoAudits": false,
+                "showShadowRootInWxmlPanel": true,
+                "scopeDataCheck": false,
+                "uglifyFileName": false,
+                "checkInvalidKey": true,
+                "checkSiteMap": false,
+                "uploadWithSourceMap": true,
+                "compileHotReLoad": false,
+                "useMultiFrameRuntime": false,
+                "useApiHook": true,
+                "babelSetting": {
+                        "ignore": [],
+                        "disablePlugins": [],
+                        "outputPath": ""
+                },
+                "enableEngineNative": false,
+                "useIsolateContext": true,
+                "useCompilerModule": true,
+                "userConfirmedUseCompilerModuleSwitch": false,
+                "userConfirmedBundleSwitch": false,
+                "packNpmManually": true,
+                "packNpmRelationList": [
+                        {
+                                "packageJsonPath": "./package.json",
+                                "miniprogramNpmDistDir": "./"
+                        }
+                ],
+                "minifyWXSS": true,
+                "bundle": false
+        },
+        "compileType": "miniprogram",
+        "libVersion": "2.14.0",
+        "appid": "wxfd7957b1acc1b450",
+        "projectname": "hioshop-miniprogram",
+        "isGameTourist": false,
+        "scripts": {
+                "beforeCompile": "",
+                "beforePreview": "",
+                "beforeUpload": ""
+        },
+        "simulatorType": "wechat",
+        "simulatorPluginLibVersion": {},
+        "condition": {
+                "plugin": {
+                        "list": []
+                },
+                "game": {
+                        "list": []
+                },
+                "gamePlugin": {
+                        "list": []
+                },
+                "miniprogram": {
+                        "list": [
+                                {
+                                        "name": "pages/comment/comment",
+                                        "pathName": "pages/comment/comment",
+                                        "query": "id=6",
+                                        "scene": null
+                                }
+                        ]
+                }
+        }
 }

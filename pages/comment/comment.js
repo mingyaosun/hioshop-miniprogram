@@ -11,20 +11,33 @@ Page({
          * 页面的初始数据
          */
         data: {
-                id: 0,
+                id: 0,//商品id
                 loading: 0,
                 commentList: [],
-                nocomment: true,
+                nocomment: 2,//0 没有评论，1 没有更多评论，2 有评论
                 nocommentimg: [],
                 sysHeight: 0,
                 currentPage: 1,
                 totalPages: 1,
-                size: 5,
+                size: 6,
                 totalCount: 0,
                 triggered: false,
                 hasMore: true,
                 isCard: true,
-                textNoMore: '没有更多评论啦'
+                textNoMore: '没有更多评论啦',
+                autoFocus: false,
+                activeName: '',
+                commentObj: {
+                        comGoodsid: 0,//商品id
+                        comCurrUserid: 0,//当前登陆人id
+                        comContext: '',//评论内容
+                        comComid: 0,//评论id
+                        comPublishid: 0,//评论发布者id
+                        comRecipientid: 0,//被评论人id
+                        comParentid: 0,//这条评论的父id
+                        niname: '',//昵称
+                        avatar: '',//头像
+                }
         },
 
         /**
@@ -39,10 +52,15 @@ Page({
                         id = options.id;
                 }
                 let info = wx.getSystemInfoSync();
+                let userInfo = wx.getStorageSync('userInfo');
                 let sysHeight = info.windowHeight;
                 this.setData({
                         id: id, // 这个是商品id
-                        sysHeight: sysHeight
+                        sysHeight: sysHeight,
+                        'commentObj.comGoodsid': id,
+                        'commentObj.comCurrUserid': userInfo.id,
+                        'commentObj.niname': userInfo.nickname,
+                        'commentObj.avatar': userInfo.avatar
                 });
 
         },
@@ -77,7 +95,7 @@ Page({
                                 let nocommentimg = that.data.nocommentimg;
                                 if (_commentList && _commentList.length > 0) {
                                         that.setData({
-                                                nocomment: false,
+                                                nocomment: 2,
                                                 commentCount: util.transformUnit(totalCount)
                                         });
                                         for (var temp101 = 0; temp101 < _commentList.length; temp101++) {
@@ -90,7 +108,9 @@ Page({
                                         }
                                         that.setData({ nocommentimg });
                                 } else {
-
+                                        that.setData({
+                                                nocomment: 1
+                                        });
                                 }
                                 if (currentPage == 1 && totalPages > 1) {
                                         that.setData({
@@ -152,7 +172,7 @@ Page({
                 this.setData({
                         triggered: true,
                         currentPage: 1,
-                        size: 5
+                        size: 6
                 });
                 this.getCommentInfo();
         },
@@ -196,9 +216,14 @@ Page({
                                         .then(function (res) {
                                                 let _res = res;
                                                 if (_res.errno == 0) {
+                                                        let nocomment = that.data.nocomment;
                                                         let oldCommentList = that.data.commentList;
                                                         let newCommentList = oldCommentList.slice(0, index).concat(oldCommentList.slice(index + 1, oldCommentList.length));
+                                                        if (newCommentList.length == 0) {
+                                                                nocomment = 0;
+                                                        }
                                                         that.setData({
+                                                                nocomment: nocomment,
                                                                 commentList: newCommentList
                                                         })
                                                         Dialog.close();
@@ -211,13 +236,106 @@ Page({
                                 Dialog.close();
                         });
                 }
-
                 console.log('cardId====== ', cardId)
                 console.log('publishId====== ', publishId)
                 console.log('userInfo.id====== ', userInfo.id)
                 console.log('index====== ', index)
+        },
+        onChange(event) {
+                const { key } = event.currentTarget.dataset;
+                this.setData({
+                        activeName: event.detail,
+                });
+                console.log('changeevent', event)
+                console.log('data', this.data)
+        },
 
+        onOpen(event) {
+                console.log('event', event)
+        },
 
-        }
+        onClose(event) {
+        },
+        addComment(e) {
+                this.setData({
+                        'commentObj.comContext': e.detail.value
+                })
+        },
+        showRound(e) {
+                console.log('showRound ', e)
+                this.setData({
+                        'commentObj.comComid': e.currentTarget.dataset.comComid,//评论id
+                        'commentObj.comPublishid': e.currentTarget.dataset.comPublishid,//评论发布者id
+                        'commentObj.comRecipientid': e.currentTarget.dataset.comRecipientid,//被评论人id
+                        'commentObj.comParentid': e.currentTarget.dataset.comParentid,//这条评论的父id
+                });
+                this.toggle('round', true);
+        },
+
+        hideRound() {
+                this.toggle('round', false);
+                this.setData({
+                        'commentObj.comComid': 0,//评论id
+                        'commentObj.comPublishid': 0,//评论发布者id
+                        'commentObj.comRecipientid': 0,//被评论人id
+                        'commentObj.comParentid': 0,//这条评论的父id
+                });
+        },
+        toggle(type, show) {
+                let that = this;
+                that.setData({
+                        autoFocus: true,
+                        [`show.${type}`]: show
+                });
+        },
+        sendComment(e) {
+                console.log('commentObj ', this.data.commentObj)
+                let that = this;
+                
+                wx.showLoading({
+                        title: '正在评论',
+                });
+                util.request(api.CommentAdd, {
+                        niname: that.data.commentObj.niname,
+                        avatar: that.data.commentObj.avatar,
+                        cardId: that.data.commentObj.comGoodsid,
+                        publishId: that.data.commentObj.comCurrUserid,//发布人id就是当期用户id
+                        recipientId: that.data.commentObj.comPublishid,//回复评论时候,被评论人id，实际就是发布人id
+                        comId: that.data.commentObj.comComid,
+                        parentId: that.data.commentObj.comParentid,
+                        comContext: that.data.commentObj.comContext
+                }, "POST").then(function (res) {
+                        let _res = res;
+                        if (_res.errno == 0) {
+                                that.hideRound();
+                                wx.showToast({
+                                        title: '发布成功',
+                                        icon: 'success',
+                                        duration: 2000,
+                                        success: function () {
+                                                wx.navigateBack();
+                                        }
+                                })
+                        } else {
+                        }
+                }).catch(() => { });
+                setTimeout(function () {
+                        wx.showToast({
+                                title: '评论成功',
+                                icon: 'success',
+                                duration: 1500,
+                                success: function () {
+                                        that.setData({
+                                                'commentObj.comContext': '',
+                                                'commentObj.comComid': 0,//评论id
+                                                'commentObj.comPublishid': 0,//评论发布者id
+                                                'commentObj.comRecipientid': 0,//被评论人id
+                                                'commentObj.comParentid': 0,//这条评论的父id
+                                        })
+
+                                }
+                        })
+                }, 2000)
+        },
 
 })

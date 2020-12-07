@@ -4,7 +4,7 @@ App({
     data: {
         deviceInfo: {}
     },
-    onLaunch: function() {
+    onLaunch: function () {
         this.data.deviceInfo = wx.getSystemInfoSync();
         console.log(this.data.deviceInfo);
         // 展示本地存储能力
@@ -38,7 +38,7 @@ App({
         })
         let that = this;
         wx.getSystemInfo({ //  获取页面的有关信息
-            success: function(res) {
+            success: function (res) {
                 wx.setStorageSync('systemInfo', res)
                 var ww = res.windowWidth;
                 var hh = res.windowHeight;
@@ -47,6 +47,15 @@ App({
             }
         });
 
+        util.request(api.GetQiniuToken, {}).then(function (res) {
+            if (res.errno === 0) {
+                let upLoadParam = {
+                    'imgToken': res.data.token,
+                    'upLoadHttps': res.data.url + 'upload.php'
+                }
+                wx.setStorageSync('upLoadParam', upLoadParam);
+            }
+        });
     },
     globalData: {
         userInfo: {
