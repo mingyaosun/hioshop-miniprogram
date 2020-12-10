@@ -3,6 +3,7 @@
 
 page {
         height: 100%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .container {
@@ -176,10 +177,15 @@ page {
         padding: 30rpx 32rpx !important;
 }
 
+.van-cell {
+        display: contents;
+        padding: 0rpx 20rpx 30rpx 0rpx !important;
+}
+
 .van-cell__title,
 .van-cell__value {
         display: contents;
-        padding: 30rpx 0;
+        padding-bottom: 30rpx !important;
 }
 
 .addComment {

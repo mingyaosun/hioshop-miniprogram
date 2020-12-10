@@ -26,7 +26,12 @@ Page({
                 isCard: true,
                 textNoMore: '没有更多评论啦',
                 autoFocus: false,
-                activeName: '',
+                activeName1: {
+                        active0: {
+                                name: '',//折叠面板对应的名字
+                                status: false,//折叠面板展开状态，false未展开，true展开
+                        }
+                },
                 commentObj: {
                         comGoodsid: 0,//商品id
                         comCurrUserid: 0,//当前登陆人id
@@ -37,7 +42,8 @@ Page({
                         comParentid: 0,//这条评论的父id
                         niname: '',//昵称
                         avatar: '',//头像
-                }
+                },
+                childrenComments: {},//每条评论的子评论
         },
 
         /**
@@ -88,7 +94,7 @@ Page({
                 }).then(function (res) {
                         if (res.errno === 0) {
                                 let currentPage = res.data.commentList.currentPage;//当前页数
-                                let totalCount = res.data.commentList.count;//总条数
+                                let totalCount = res.data.commentList.count + res.data.commentList.otherCount;//总条数
                                 let totalPages = res.data.commentList.totalPages;//总页数
                                 let _commentList = res.data.commentList.data;//返回数据条数
                                 console.log(_commentList);
@@ -241,20 +247,55 @@ Page({
                 console.log('userInfo.id====== ', userInfo.id)
                 console.log('index====== ', index)
         },
-        onChange(event) {
-                const { key } = event.currentTarget.dataset;
-                this.setData({
-                        activeName: event.detail,
-                });
-                console.log('changeevent', event)
-                console.log('data', this.data)
-        },
-
         onOpen(event) {
-                console.log('event', event)
+                let that = this;
+                util.request(api.ChildrenComments, {
+                        goodsId: that.data.id,
+                        comId: event.currentTarget.dataset.comComid
+                }).then(function (res) {
+                        if (res.errno === 0) {
+                                console.log('子评论', res.data.childrenCommentsList)
+                                let childrenComments = that.data.childrenComments;
+                                let _childrenComments = res.data.childrenCommentsList;
+                                // util.wl_changeTime
+                                _childrenComments.forEach(function (item, index) {
+                                        item.time = util.wl_changeTime(item.time);
+                                })
+                                const keyChild = event.currentTarget.dataset.keychild;
+                                childrenComments[keyChild] = _childrenComments;
+                                that.setData({
+                                        childrenComments: childrenComments
+                                })
+                                console.log(that.data.childrenComments)
+                                //折叠面板
+                                let activeName1 = that.data.activeName1;
+                                const { key1 } = event.currentTarget.dataset;
+                                activeName1[key1] = {
+                                        name: event.detail,
+                                        status: true
+                                }
+                                that.setData({
+                                        activeName1: activeName1
+                                });
+                                console.log('activeName1--open', that.data.activeName1)
+                                console.log('open', event)
+                        }
+                });
+
         },
 
         onClose(event) {
+                let activeName1 = this.data.activeName1;
+                const { key1 } = event.currentTarget.dataset;
+                activeName1[key1] = {
+                        name: "",
+                        status: false
+                }
+                this.setData({
+                        activeName1: activeName1
+                });
+                console.log('activeName1--close', this.data.activeName1)
+                console.log('close', event)
         },
         addComment(e) {
                 this.setData({
@@ -291,7 +332,7 @@ Page({
         sendComment(e) {
                 console.log('commentObj ', this.data.commentObj)
                 let that = this;
-                
+
                 wx.showLoading({
                         title: '正在评论',
                 });
@@ -300,7 +341,7 @@ Page({
                         avatar: that.data.commentObj.avatar,
                         cardId: that.data.commentObj.comGoodsid,
                         publishId: that.data.commentObj.comCurrUserid,//发布人id就是当期用户id
-                        recipientId: that.data.commentObj.comPublishid,//回复评论时候,被评论人id，实际就是发布人id
+                        recipientId: that.data.commentObj.comPublishid,//回复评论时候,被评论人id，实际就是这条评论之前发布人id
                         comId: that.data.commentObj.comComid,
                         parentId: that.data.commentObj.comParentid,
                         comContext: that.data.commentObj.comContext
