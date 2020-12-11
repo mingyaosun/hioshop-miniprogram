@@ -42,7 +42,7 @@
 			去逛逛
 		</view>
 	</view>
-	<view class="settle-box" wx:if="{{cartGoods.length > 0}}">
+	<!-- <view class="settle-box" wx:if="{{cartGoods.length > 0}}">
 		<view class="left-price">
 			<view class="all-selected" bindtap="checkedAll">
 				<image class="checkbox" wx:if="{{checkedAllStatus}}" src="/images/icon/gou-red.png"></image>
@@ -52,6 +52,6 @@
 			</view>
 			<view class="total" hidden="">合计：{{cartTotal.checkedGoodsAmount}} 颗小红心</view>
 		</view>
-		<!-- <view class="to-pay-btn" hidden="" bindtap="checkoutOrder">去结算</view> -->
-	</view>
+		<view class="to-pay-btn" hidden="" bindtap="checkoutOrder">去结算</view>
+	</view> -->
 </view>

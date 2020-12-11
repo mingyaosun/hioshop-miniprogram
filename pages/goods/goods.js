@@ -36,7 +36,8 @@ Page({
         nocommentimg: [],
         commentCount: 0,
         upCount: 0,
-        total: 0
+        total: 0,
+
     },
     hideDialog: function (e) {
         let that = this;
@@ -629,5 +630,5 @@ Page({
         wx.navigateTo({
             url: '/pages/comment-add/comment-add?id=' + that.data.id
         });
-    }
+    },
 })

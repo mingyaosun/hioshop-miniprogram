@@ -10,8 +10,8 @@
                                 <view class="cu-item shadow">
                                         <view class="cu-list menu-avatar">
                                                 <view class="cu-item">
-                                                        <view class="cu-avatar round lg"
-                                                                style="background-image:url({{(item.avatar == '' || item.avatar == null )?'/images/icon/default_avatar_big.png':item.avatar}});">
+                                                        <view class="cu-avatar round lg">
+                                                                <image class="cu-avatar round lg" src="{{(item.avatar == '' || item.avatar == null)?'/images/icon/default_avatar_big.png':item.avatar}}"></image>
                                                         </view>
                                                         <view class="content flex-sub">
                                                                 <view>{{item.niname}}</view>
@@ -61,30 +61,99 @@
                                                                         <view class="cu-list menu-avatar"
                                                                                 wx:for="{{childrenComments['child'+imgIndex]}}"
                                                                                 wx:for-item="childrenItem" wx:key="id">
-                                                                                <view class="cu-item">
-                                                                                        <view class="cu-avatar round xs"
-                                                                                                style="background-image:url({{(childrenItem.avatar == '' || childrenItem.avatar == null )?'/images/icon/default_avatar_big.png':item.avatar}});">
-                                                                                        </view>
-                                                                                        <view class="content flex-sub text-xs"
-                                                                                                style="left:110rpx;">
-                                                                                                <view>{{childrenItem.niname}}
+                                                                                <block
+                                                                                        wx:if="{{childrenItem.parentIdLength < 3}}">
+                                                                                        <view class="cu-item"
+                                                                                                style="height:120rpx;">
+                                                                                                <view class="cu-avatar round xs">
+                                                                                                        <image class="cu-avatar round" src="{{(childrenItem.avatar == '' || childrenItem.avatar == null)?'/images/icon/default_avatar_big.png':childrenItem.avatar}}"></image>
                                                                                                 </view>
-                                                                                                <view
-                                                                                                        class="text-gray text-sm flex justify-between">
-                                                                                                        {{childrenItem.time}}
+                                                                                                <view class="content flex-sub text-xs"
+                                                                                                        style="left:110rpx;">
+                                                                                                        <view>{{childrenItem.niname}}
+                                                                                                        </view>
+                                                                                                        <view class="text-gray text-sm flex "
+                                                                                                                style="justify-content:start">
+                                                                                                                {{childrenItem.time}}
+                                                                                                                <view bindtap="showRound"
+                                                                                                                        class="text-gray text-sub text-right "
+                                                                                                                        data-com-comid="{{childrenItem.id}}"
+                                                                                                                        data-com-publishid="{{childrenItem.publish_id}}"
+                                                                                                                        data-com-recipientid="{{childrenItem.recipient_id}}"
+                                                                                                                        data-com-parentid="{{childrenItem.parent_id}}"
+                                                                                                                        style="padding-left:20rpx;padding-bottom:0rpx;">
+                                                                                                                        <text
+                                                                                                                                class="cuIcon-messagefill margin-lr-sub"></text>
+                                                                                                                        回复
+                                                                                                                </view>
+                                                                                                                <view
+                                                                                                                        style="clear:both;">
+                                                                                                                </view>
+                                                                                                        </view>
+
+                                                                                                </view>
+                                                                                                <view class="text-gray text-sm text-right"
+                                                                                                        style="pading:6rpx;">
+                                                                                                        <text
+                                                                                                                class="cuIcon-appreciatefill margin-lr-xs"></text>
+                                                                                                        20000
                                                                                                 </view>
                                                                                         </view>
-                                                                                        <view class="text-gray text-sm text-right"
-                                                                                                style="pading:6rpx;">
-                                                                                                <text
-                                                                                                        class="cuIcon-appreciatefill margin-lr-xs"></text>
-                                                                                                20000
+                                                                                        <view class="text-content"
+                                                                                                style="padding-left:30rpx;">
+                                                                                                {{childrenItem.body}}
                                                                                         </view>
-                                                                                </view>
-                                                                                <view class="text-content"
-                                                                                        style="padding-left:30rpx;">
-                                                                                        {{childrenItem.body}}
-                                                                                </view>
+                                                                                </block>
+                                                                                <block wx:if="{{childrenItem.parentIdLength >= 3}}">
+                                                                                        <view class="cu-item"
+                                                                                                style="height:120rpx;">
+                                                                                                <view class="cu-avatar round xs">
+                                                                                                        <image class="cu-avatar round" src="{{(childrenItem.avatar == '' || childrenItem.avatar == null)?'/images/icon/default_avatar_big.png':childrenItem.avatar}}"></image>
+                                                                                                </view>
+                                                                                                <view class="content flex-sub text-xs"
+                                                                                                        style="left:110rpx;">
+                                                                                                        <view style="">
+                                                                                                                <view
+                                                                                                                        style="font-size:20rpx;">
+                                                                                                                        {{childrenItem.niname}}
+                                                                                                                </view>
+                                                                                                                <text
+                                                                                                                        class="cuIcon-forwardfill padding-right-sm padding-left-sm"></text>
+                                                                                                                <view style="font-size:20rpx;">{{childrenItem.niname}}
+                                                                                                                </view>
+                                                                                                        </view>
+                                                                                                        <view class="text-gray text-sm flex "
+                                                                                                                style="justify-content:start">
+                                                                                                                {{childrenItem.time}}
+                                                                                                                <view bindtap="showRound"
+                                                                                                                        class="text-gray text-sub text-right "
+                                                                                                                        data-com-comid="{{childrenItem.id}}"
+                                                                                                                        data-com-publishid="{{childrenItem.publish_id}}"
+                                                                                                                        data-com-recipientid="{{childrenItem.recipient_id}}"
+                                                                                                                        data-com-parentid="{{childrenItem.parent_id}}"
+                                                                                                                        style="padding-left:20rpx;padding-bottom:0rpx;">
+                                                                                                                        <text
+                                                                                                                                class="cuIcon-messagefill margin-lr-sub"></text>
+                                                                                                                        回复
+                                                                                                                </view>
+                                                                                                                <view
+                                                                                                                        style="clear:both;">
+                                                                                                                </view>
+                                                                                                        </view>
+
+                                                                                                </view>
+                                                                                                <view class="text-gray text-sm text-right"
+                                                                                                        style="pading:6rpx;">
+                                                                                                        <text
+                                                                                                                class="cuIcon-appreciatefill margin-lr-xs"></text>
+                                                                                                        20000
+                                                                                                </view>
+                                                                                        </view>
+                                                                                        <view class="text-content"
+                                                                                                style="padding-left:30rpx;">
+                                                                                                {{childrenItem.body}}
+                                                                                        </view>
+                                                                                </block>
                                                                         </view>
                                                                 </van-collapse-item>
                                                         </van-collapse>

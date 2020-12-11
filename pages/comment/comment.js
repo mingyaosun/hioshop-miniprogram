@@ -354,29 +354,19 @@ Page({
                                         icon: 'success',
                                         duration: 2000,
                                         success: function () {
-                                                wx.navigateBack();
+                                                // wx.navigateBack();
+                                                that.setData({
+                                                        'commentObj.comContext': '',
+                                                        'commentObj.comComid': 0,//评论id
+                                                        'commentObj.comPublishid': 0,//评论发布者id
+                                                        'commentObj.comRecipientid': 0,//被评论人id
+                                                        'commentObj.comParentid': 0,//这条评论的父id
+                                                })
                                         }
                                 })
                         } else {
                         }
                 }).catch(() => { });
-                setTimeout(function () {
-                        wx.showToast({
-                                title: '评论成功',
-                                icon: 'success',
-                                duration: 1500,
-                                success: function () {
-                                        that.setData({
-                                                'commentObj.comContext': '',
-                                                'commentObj.comComid': 0,//评论id
-                                                'commentObj.comPublishid': 0,//评论发布者id
-                                                'commentObj.comRecipientid': 0,//被评论人id
-                                                'commentObj.comParentid': 0,//这条评论的父id
-                                        })
-
-                                }
-                        })
-                }, 2000)
         },
 
 })

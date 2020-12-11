@@ -22,7 +22,7 @@
 <template name="wxPraseIframe">
     <!--增加Iframe标签支持，并循环添加-->
     <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
-        <video show-mute-btn="{{true}}" muted="{{true}}" class="{{item.classStr}} wxParse-{{item.tag}}-video" src="{{item.attr.src}}"></video>
+        <video object-fit="cover" show-mute-btn="{{true}}" muted="{{true}}" class="{{item.classStr}} wxParse-{{item.tag}}-video" src="{{item.attr.src}}" auto-pause-if-navigate="{{false}}"></video>
     </view>
 </template>
 
