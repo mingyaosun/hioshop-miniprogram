@@ -3,7 +3,11 @@
     "van-dialog": "/components/dialog/index",
     "van-collapse": "/components/collapse/index",
     "van-collapse-item": "/components/collapse-item/index",
-    "van-popup": "/components/popup/index"
+    "van-popup": "/components/popup/index",
+    "van-empty": "/components/empty/index",
+    "van-loading": "/components/loading/index"
+
+
 
 },
 

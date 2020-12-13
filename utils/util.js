@@ -380,7 +380,7 @@ function wl_changeTime(time) {
 
     var month = day * 30;
     var year = month * 12;
-    var now = new Date().getTime();
+    var now = new Date().getTime() + 1000;
     var diffValue = now - dateTimeStamp;
     var result = ""
     if (diffValue < 0) {

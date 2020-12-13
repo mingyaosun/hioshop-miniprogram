@@ -1,6 +1,6 @@
-const ApiRootUrl = 'http://192.168.3.179:8360/api/';
+// const ApiRootUrl = 'http://192.168.3.16:8360/api/';
 // const ApiRootUrl = 'http://localhost:8360/api/';
-// const ApiRootUrl = 'https://www.sunmingyao.com:18360/api/';
+const ApiRootUrl = 'https://www.sunmingyao.com:18360/api/';
 
 module.exports = {
     // 登录
@@ -59,7 +59,10 @@ module.exports = {
     GetQiniuToken: ApiRootUrl + 'index/getQiniuToken',//获得本地服务器图片上传的token
     CommentDelete: ApiRootUrl + 'goods/deleteCommnets',//删除评论
     CommentAdd: ApiRootUrl + 'goods/addComments',//添加评论
-    ChildrenComments:ApiRootUrl +'goods/childrenComments',//获得子评论
+    ChildrenComments: ApiRootUrl + 'goods/childrenComments',//获得子评论
+
+    //点赞功能
+    ThumbsUpAdd: ApiRootUrl + 'goods/addThumbsUp',//点赞
 
 
 };

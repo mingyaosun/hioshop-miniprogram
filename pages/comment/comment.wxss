@@ -1,228 +1,229 @@
 @import "/colorui/main.wxss";
 @import "/colorui/icon.wxss";
+@import "/colorui/animation.wxss";
 
 page {
-        height: 100%;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    height: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .container {
-        background-color: #f8f8f8;
-        min-height: 100%;
-        align-items: stretch;
-        overflow-x: hidden;
-        position: relative;
-        width: 100%;
+    background-color: #f8f8f8;
+    min-height: 100%;
+    align-items: stretch;
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
 }
 
 .details-wrap .title {
-        padding: 40rpx 30rpx;
-        font-size: 32rpx;
-        text-align: left;
+    padding: 40rpx 30rpx;
+    font-size: 32rpx;
+    text-align: left;
 }
 
 .details-wrap .tab-nav {
-        padding: 0 24rpx;
-        border-bottom: 1rpx solid #eee;
-        display: flex;
-        justify-content: space-between;
+    padding: 0 24rpx;
+    border-bottom: 1rpx solid #eee;
+    display: flex;
+    justify-content: space-between;
 }
 
 .details-wrap .tab-nav .tab {
-        display: flex;
-        justify-content: center;
-        width: 50%;
+    display: flex;
+    justify-content: center;
+    width: 50%;
 }
 
 .details-wrap .tab-nav .tab .tab-text {
-        font-size: 30rpx;
-        width: 60%;
-        color: #233445;
-        height: 80rpx;
-        line-height: 80rpx;
-        text-align: center;
+    font-size: 30rpx;
+    width: 60%;
+    color: #233445;
+    height: 80rpx;
+    line-height: 80rpx;
+    text-align: center;
 }
 
 .details-wrap .tab-nav .active .tab-text {
-        color: #ff3456;
-        border-bottom: 1px solid #ff3456;
+    color: #ff3456;
+    border-bottom: 1px solid #ff3456;
 }
 
 .details-wrap .tab-nav .default {
-        color: #233445;
-        border-bottom: 1px solid #fff;
+    color: #233445;
+    border-bottom: 1px solid #fff;
 }
 
 .comment_boder_noimg {
-        border: 3rpx solid #faca82;
-        border-radius: 10rpx;
+    border: 3rpx solid #faca82;
+    border-radius: 10rpx;
 }
 
 .comment_boder {
-        border: 3rpx solid #faca82;
-        border-radius: 10rpx;
+    border: 3rpx solid #faca82;
+    border-radius: 10rpx;
 }
 
 .comment_niname {
-        font-size: 28rpx;
-        margin-left: 25rpx;
+    font-size: 28rpx;
+    margin-left: 25rpx;
 }
 
 .comment_body {
-        text-align: left;
-        padding-right: 30rpx;
-        flex-flow: row;
-        height: 100rpx;
-        line-height: 45rpx;
-        font-size: 35rpx;
-        margin-top: 10rpx;
-        margin-left: 20rpx;
+    text-align: left;
+    padding-right: 30rpx;
+    flex-flow: row;
+    height: 100rpx;
+    line-height: 45rpx;
+    font-size: 35rpx;
+    margin-top: 10rpx;
+    margin-left: 20rpx;
 }
 
 .comment_content {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        flex-flow: row;
-        height: 128rpx;
-        position: relative;
-        margin-right: 10rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-flow: row;
+    height: 128rpx;
+    position: relative;
+    margin-right: 10rpx;
 }
 
 .comment_touxiang {
-        width: 85rpx;
-        height: 85rpx;
-        border-radius: 90rpx;
-        margin-top: 10rpx;
-        margin-left: 25rpx;
+    width: 85rpx;
+    height: 85rpx;
+    border-radius: 90rpx;
+    margin-top: 10rpx;
+    margin-left: 25rpx;
 }
 
 .comment_img_row {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .comment_img {
-        margin-top: 20rpx;
-        padding-left: 20rpx;
-        margin-bottom: 20rpx;
-        margin-right: 20rpx;
-        width: 40%;
+    margin-top: 20rpx;
+    padding-left: 20rpx;
+    margin-bottom: 20rpx;
+    margin-right: 20rpx;
+    width: 40%;
 }
 
 .comment_img_img {
-        flex-direction: row;
-        justify-content: center;
-        width: 90%;
-        margin-top: 20rpx;
-        margin-left: 20rpx;
-        margin-bottom: 20rpx;
-        margin-right: 20rpx;
+    flex-direction: row;
+    justify-content: center;
+    width: 90%;
+    margin-top: 20rpx;
+    margin-left: 20rpx;
+    margin-bottom: 20rpx;
+    margin-right: 20rpx;
 }
 
 .loading {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 /* 修改动图大小 */
 .loading .img {
-        width: 260rpx;
-        height: 240rpx;
+    width: 260rpx;
+    height: 240rpx;
 }
 
 .loading .text {
-        margin-top: 20rpx;
-        width: 100%;
-        font-size: 24rpx;
-        color: #999;
-        text-align: center;
+    margin-top: 20rpx;
+    width: 100%;
+    font-size: 24rpx;
+    color: #999;
+    text-align: center;
 }
 
 /* 没有更多  */
 
 .no-more-goods {
-        text-align: center;
-        font-size: 28rpx;
-        margin: 40rpx 0 60rpx 0;
-        color: #999;
+    text-align: center;
+    font-size: 28rpx;
+    margin: 40rpx 0 60rpx 0;
+    color: #999;
 }
 
 .no-comment {
-        text-align: center;
-        font-size: 28rpx;
-        padding-top: 240rpx;
-        margin-bottom: 40rpx;
-        color: #999;
+    text-align: center;
+    font-size: 28rpx;
+    padding-top: 240rpx;
+    margin-bottom: 40rpx;
+    color: #999;
 }
 
 .cu-card>.cu-item {
-        border-radius: 20rpx;
-        margin: 12rpx;
+    border-radius: 20rpx;
+    margin: 12rpx;
 }
 
 .van-hairline--top-bottom:after {
-        border-width: 0px !important;
+    border-width: 0px !important;
 }
 
 .van-cell {
-        justify-content: flex-end;
-        padding: 30rpx 32rpx !important;
+    justify-content: flex-end;
+    padding: 30rpx 32rpx !important;
 }
 
 .van-cell {
-        display: contents;
-        padding: 0rpx 20rpx 30rpx 0rpx !important;
+    display: contents;
+    padding: 0rpx 20rpx 30rpx 0rpx !important;
 }
 
 .van-cell__title,
 .van-cell__value {
-        display: contents;
-        padding-bottom: 30rpx !important;
+    display: contents;
+    padding-bottom: 30rpx !important;
 }
 
 .addComment {
-        min-height: 50rpx;
-        max-height: 500rpx;
-        text-align: left;
-        /* margin: 0rpx  30rpx; */
+    min-height: 50rpx;
+    max-height: 500rpx;
+    text-align: left;
+    /* margin: 0rpx  30rpx; */
 }
 
 .cu-dialog {
-        border-top-left-radius: 2% !important;
-        border-top-right-radius: 2% !important;
+    border-top-left-radius: 2% !important;
+    border-top-right-radius: 2% !important;
 }
 
 .van-collapse-item__content {
-        padding: 0rpx 30rpx 30rpx 30rpx !important;
+    padding: 0rpx 30rpx 30rpx 30rpx !important;
 }
 
 .cu-form-group {
-        background-color: var(--white);
-        padding: 30rpx 30rpx;
-        display: flex;
-        min-height: 100rpx;
-        justify-content: space-between;
+    background-color: var(--white);
+    padding: 30rpx 30rpx;
+    display: flex;
+    min-height: 100rpx;
+    justify-content: space-between;
 }
 
 .cu-avatar {
-        background-color: white;
+    background-color: white;
 }
 
 /* 是否允许点击事件 */
 .allow {
-        pointer-events: auto;
+    pointer-events: auto;
 }
 
 .no-allow {
-        pointer-events: none;
+    pointer-events: none;
 }
 
 /* .padd-line :before{
@@ -232,3 +233,51 @@ page {
         width: 5%;
         height: 1px;  
 } */
+.padding-left-xxl {
+    padding-left: 108rpx;
+}
+
+.child-font-size {
+    font-size: 26rpx;
+}
+
+.cu-card.dynamic .cu-item .text-content {
+    padding: 0 30rpx 0;
+    max-height: 6.4em;
+    overflow: hidden;
+    font-size: 30rpx;
+    margin-bottom: 20rpx;
+}
+
+.cu-load.load-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 140rpx;
+    left: 0;
+    margin: auto;
+    width: 50rpx;
+    height: 50rpx;
+    /* background-color: var(--white); */
+    border-radius: 10rpx;
+    /* box-shadow: 0 0 0rpx 2000rpx rgba(0, 0, 0, 0.5); */
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 16rpx;
+    z-index: 9999;
+    line-height: 2.4em;
+    opacity: 0.3;
+}
+
+.loadingMore {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 140rpx;
+    left: 0;
+    margin: auto; 
+    z-index: 9999;
+    line-height: 2.4em;
+}

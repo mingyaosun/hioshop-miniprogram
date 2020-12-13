@@ -15,6 +15,7 @@ Page({
         util.request(api.GetBase64, {
             goodsId: id
         }, 'POST').then(function(res) {
+            debugger
             if (res.errno === 0) {
                 that.getQrcodeJpg(res.data);
             }

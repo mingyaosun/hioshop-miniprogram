@@ -1,188 +1,210 @@
 <view class="container" wx:if="{{loading == 1}}">
-        <scroll-view style="height:100vh" class='details-wrap' refresher-enabled="{{true}}" scroll-y="true"
-                lower-threshold="50" refresher-threshold="{{100}}" refresher-default-style="white"
-                enable-back-to-top="true" refresher-background="#a9a9a9" refresher-triggered="{{triggered}}"
-                bindrefresherrefresh="onRefresh" bindscrolltolower="loadMore">
-                <view wx:for="{{commentList}}" wx:key="id" wx:for-index="imgIndex">
-                        <!-- <view class="cu-card dynamic {{isCard?'no-card solids-bottom':''}}"> -->
-                        <view class="cu-card dynamic {{false?'no-card solids-bottom':''}}" bindlongpress="longPress"
-                                id="{{item.id}}" data-publishid="{{item.publish_id}}" data-index="{{imgIndex}}">
-                                <view class="cu-item shadow">
-                                        <view class="cu-list menu-avatar">
-                                                <view class="cu-item">
-                                                        <view class="cu-avatar round lg">
-                                                                <image class="cu-avatar round lg" src="{{(item.avatar == '' || item.avatar == null)?'/images/icon/default_avatar_big.png':item.avatar}}"></image>
-                                                        </view>
-                                                        <view class="content flex-sub">
-                                                                <view>{{item.niname}}</view>
-                                                                <view class="text-gray text-sm flex justify-between">
-                                                                        {{item.time}}
-                                                                </view>
-                                                        </view>
-                                                        <view class="text-gray text-xl text-right"
-                                                                style="padding:6rpx;">
-                                                                <text class="cuIcon-appreciatefill margin-lr-xs"></text>
-                                                                20000
-                                                        </view>
+    <scroll-view style="height:100vh" class='details-wrap' refresher-enabled="{{true}}" scroll-y="true"
+        lower-threshold="50" refresher-threshold="{{100}}" refresher-default-style="white" enable-back-to-top="true"
+        refresher-background="#a9a9a9" refresher-triggered="{{triggered}}" bindrefresherrefresh="onRefresh"
+        bindscrolltolower="loadMore">
+        <view wx:for="{{commentList}}" wx:key="id" wx:for-index="imgIndex">
+            <!-- <view class="cu-card dynamic {{isCard?'no-card solids-bottom':''}}"> -->
+            <view class="cu-card dynamic {{false?'no-card solids-bottom':''}}">
+                <view class="cu-item shadow">
+                    <view bindlongpress="longPress" id="{{item.id}}" data-publishid="{{item.publish_id}}"
+                        data-index="{{imgIndex}}" data-longtype="parent">
+                        <view class="cu-list menu-avatar">
+                            <view class="cu-item">
+                                <view class="cu-avatar round lg">
+                                    <image class="cu-avatar round lg"
+                                        src="{{(item.avatar == '' || item.avatar == null)?'/images/icon/default_avatar_big.png':item.avatar}}">
+                                    </image>
+                                </view>
+                                <view class="content flex-sub" style="width:60%">
+                                    <view>{{item.niname}}</view>
+                                    <view class="text-gray text-sm flex justify-between">
+                                        {{item.time}}
+                                    </view>
+                                </view>
+                                <view
+                                    class="text-gray text-xl text-right margin-lr-xs animation-{{item.thumbsUpInfo.animation=='scale-up'?'scale-up':''}}"
+                                    data-comid="{{item.id}}" data-class="scale-up" bindtap="thumbsUp" data-type="parent"
+                                    data-thumbs-index="{{imgIndex}}" data-isup="{{item.thumbsUpInfo.isUp}}"
+                                    data-thumbsid="{{item.thumbsUpInfo.id}}">
+                                    <text
+                                        class="cuIcon-{{item.thumbsUpInfo.isUp?'appreciatefill':'appreciate'}} "></text>
+                                    {{item.thumbsUpInfo.count == 0 ?'':item.thumbsUpInfo.count}}
+                                </view>
+                            </view>
+                        </view>
+                        <view class="text-content ">
+                            {{item.body}}
+                        </view>
+                        <view class="grid flex-sub padding-lr {{isCard?'col-3 grid-square':'col-1'}}">
+                            <view class="bg-img {{isCard?'':'only-img'}}" style="background-image:url({{item.url}});"
+                                wx:for="{{item.list}}" wx:key="url" data-imgIndex="{{imgIndex}}" bindtap="ViewImage"
+                                data-url="{{item.url}}">
+                            </view>
+                        </view>
+                    </view>
+                    <view bindtap="showRound" class="text-gray text-sub text-right " data-com-comid="{{item.id}}"
+                        data-com-publishid="{{item.publish_id}}" data-com-recipientid="{{item.recipient_id}}"
+                        data-com-recipientname="{{item.niname}}" data-com-parentid="{{item.parent_id}}"
+                        data-com-index="{{imgIndex}}" style="padding-right:20rpx;padding-bottom:30rpx;float:right;">
+                        <text class="cuIcon-messagefill margin-lr-sub"></text>
+                        回复
+                    </view>
+                    <view style="clear:both;"></view>
+                    <view>
+                        <van-collapse accordion style="z-index:0" value="{{ activeName1['active'+imgIndex].name }}"
+                            wx:if="{{item.childrenCount > 0}}" data-key1="active{{imgIndex}}"
+                            data-keychild="child{{imgIndex}}" data-com-comid="{{item.id}}" bind:open="onOpen"
+                            bind:close="onClose">
+                            <van-collapse-item
+                                title="{{!activeName1['active'+imgIndex].status?'展开'+item.childrenCount+'条回复':'收起回复'}}"
+                                name="active{{imgIndex}}" class="padd-line">
+                                <view class="cu-list menu-avatar" wx:for="{{childrenComments['child'+imgIndex]}}"
+                                    wx:for-item="childrenItem" wx:key="id" wx:for-index="childIndex">
+                                    <block wx:if="{{childrenItem.parentIdLength < 3}}">
+                                        <view class="cu-item" style="height:120rpx;" bindlongpress="longPress"
+                                            id="{{childrenItem.id}}" data-publishid="{{childrenItem.publish_id}}"
+                                            data-com-index="{{imgIndex}}" data-com-childindex="{{childIndex}}"
+                                            data-longtype="child">
+                                            <view class="cu-avatar round xs">
+                                                <image class="cu-avatar round"
+                                                    src="{{(childrenItem.avatar == '' || childrenItem.avatar == null)?'/images/icon/default_avatar_big.png':childrenItem.avatar}}">
+                                                </image>
+                                            </view>
+                                            <view class="content flex-sub text-sub" style="left:110rpx;">
+                                                <view>{{childrenItem.niname}}
                                                 </view>
-                                        </view>
-                                        <view class="text-content">
-                                                {{item.body}}
-                                        </view>
-                                        <view class="grid flex-sub padding-lr {{isCard?'col-3 grid-square':'col-1'}}">
-                                                <view class="bg-img {{isCard?'':'only-img'}}"
-                                                        style="background-image:url({{item.url}});"
-                                                        wx:for="{{item.list}}" wx:key="url" data-imgIndex="{{imgIndex}}"
-                                                        bindtap="ViewImage" data-url="{{item.url}}">
-                                                </view>
-                                        </view>
-                                        <view>
-                                                <view bindtap="showRound" class="text-gray text-sub text-right "
-                                                        data-com-comid="{{item.id}}"
-                                                        data-com-publishid="{{item.publish_id}}"
-                                                        data-com-recipientid="{{item.recipient_id}}"
-                                                        data-com-parentid="{{item.parent_id}}"
-                                                        style="padding-right:20rpx;padding-bottom:30rpx;float:right;">
+                                                <view class="text-gray text-sm flex " style="justify-content:start;">
+                                                    {{childrenItem.time}}
+                                                    <view bindtap="showRound" class="text-gray text-sm text-right "
+                                                        data-com-comid="{{childrenItem.id}}"
+                                                        data-com-publishid="{{childrenItem.publish_id}}"
+                                                        data-com-recipientid="{{childrenItem.recipient_id}}"
+                                                        data-com-recipientname="{{childrenItem.niname}}"
+                                                        data-com-parentid="{{childrenItem.parent_id}}"
+                                                        data-com-index="{{imgIndex}}"
+                                                        data-com-childindex="{{childIndex}}"
+                                                        style="padding-left:20rpx;padding-bottom:0rpx;">
                                                         <text class="cuIcon-messagefill margin-lr-sub"></text>
                                                         回复
+                                                    </view>
+                                                    <view style="clear:both;">
+                                                    </view>
                                                 </view>
-                                                <view style="clear:both;"></view>
-                                                <view>
-                                                        <van-collapse accordion style="z-index:0"
-                                                                value="{{ activeName1['active'+imgIndex].name }}"
-                                                                wx:if="{{item.childrenCount > 0}}"
-                                                                data-key1="active{{imgIndex}}"
-                                                                data-keychild="child{{imgIndex}}"
-                                                                data-com-comid="{{item.id}}" bind:open="onOpen"
-                                                                bind:close="onClose">
-                                                                <van-collapse-item
-                                                                        title="{{!activeName1['active'+imgIndex].status?'展开'+item.childrenCount+'条回复':'收起回复'}}"
-                                                                        name="active{{imgIndex}}" class="padd-line">
-                                                                        <view class="cu-list menu-avatar"
-                                                                                wx:for="{{childrenComments['child'+imgIndex]}}"
-                                                                                wx:for-item="childrenItem" wx:key="id">
-                                                                                <block
-                                                                                        wx:if="{{childrenItem.parentIdLength < 3}}">
-                                                                                        <view class="cu-item"
-                                                                                                style="height:120rpx;">
-                                                                                                <view class="cu-avatar round xs">
-                                                                                                        <image class="cu-avatar round" src="{{(childrenItem.avatar == '' || childrenItem.avatar == null)?'/images/icon/default_avatar_big.png':childrenItem.avatar}}"></image>
-                                                                                                </view>
-                                                                                                <view class="content flex-sub text-xs"
-                                                                                                        style="left:110rpx;">
-                                                                                                        <view>{{childrenItem.niname}}
-                                                                                                        </view>
-                                                                                                        <view class="text-gray text-sm flex "
-                                                                                                                style="justify-content:start">
-                                                                                                                {{childrenItem.time}}
-                                                                                                                <view bindtap="showRound"
-                                                                                                                        class="text-gray text-sub text-right "
-                                                                                                                        data-com-comid="{{childrenItem.id}}"
-                                                                                                                        data-com-publishid="{{childrenItem.publish_id}}"
-                                                                                                                        data-com-recipientid="{{childrenItem.recipient_id}}"
-                                                                                                                        data-com-parentid="{{childrenItem.parent_id}}"
-                                                                                                                        style="padding-left:20rpx;padding-bottom:0rpx;">
-                                                                                                                        <text
-                                                                                                                                class="cuIcon-messagefill margin-lr-sub"></text>
-                                                                                                                        回复
-                                                                                                                </view>
-                                                                                                                <view
-                                                                                                                        style="clear:both;">
-                                                                                                                </view>
-                                                                                                        </view>
 
-                                                                                                </view>
-                                                                                                <view class="text-gray text-sm text-right"
-                                                                                                        style="pading:6rpx;">
-                                                                                                        <text
-                                                                                                                class="cuIcon-appreciatefill margin-lr-xs"></text>
-                                                                                                        20000
-                                                                                                </view>
-                                                                                        </view>
-                                                                                        <view class="text-content"
-                                                                                                style="padding-left:30rpx;">
-                                                                                                {{childrenItem.body}}
-                                                                                        </view>
-                                                                                </block>
-                                                                                <block wx:if="{{childrenItem.parentIdLength >= 3}}">
-                                                                                        <view class="cu-item"
-                                                                                                style="height:120rpx;">
-                                                                                                <view class="cu-avatar round xs">
-                                                                                                        <image class="cu-avatar round" src="{{(childrenItem.avatar == '' || childrenItem.avatar == null)?'/images/icon/default_avatar_big.png':childrenItem.avatar}}"></image>
-                                                                                                </view>
-                                                                                                <view class="content flex-sub text-xs"
-                                                                                                        style="left:110rpx;">
-                                                                                                        <view style="">
-                                                                                                                <view
-                                                                                                                        style="font-size:20rpx;">
-                                                                                                                        {{childrenItem.niname}}
-                                                                                                                </view>
-                                                                                                                <text
-                                                                                                                        class="cuIcon-forwardfill padding-right-sm padding-left-sm"></text>
-                                                                                                                <view style="font-size:20rpx;">{{childrenItem.niname}}
-                                                                                                                </view>
-                                                                                                        </view>
-                                                                                                        <view class="text-gray text-sm flex "
-                                                                                                                style="justify-content:start">
-                                                                                                                {{childrenItem.time}}
-                                                                                                                <view bindtap="showRound"
-                                                                                                                        class="text-gray text-sub text-right "
-                                                                                                                        data-com-comid="{{childrenItem.id}}"
-                                                                                                                        data-com-publishid="{{childrenItem.publish_id}}"
-                                                                                                                        data-com-recipientid="{{childrenItem.recipient_id}}"
-                                                                                                                        data-com-parentid="{{childrenItem.parent_id}}"
-                                                                                                                        style="padding-left:20rpx;padding-bottom:0rpx;">
-                                                                                                                        <text
-                                                                                                                                class="cuIcon-messagefill margin-lr-sub"></text>
-                                                                                                                        回复
-                                                                                                                </view>
-                                                                                                                <view
-                                                                                                                        style="clear:both;">
-                                                                                                                </view>
-                                                                                                        </view>
-
-                                                                                                </view>
-                                                                                                <view class="text-gray text-sm text-right"
-                                                                                                        style="pading:6rpx;">
-                                                                                                        <text
-                                                                                                                class="cuIcon-appreciatefill margin-lr-xs"></text>
-                                                                                                        20000
-                                                                                                </view>
-                                                                                        </view>
-                                                                                        <view class="text-content"
-                                                                                                style="padding-left:30rpx;">
-                                                                                                {{childrenItem.body}}
-                                                                                        </view>
-                                                                                </block>
-                                                                        </view>
-                                                                </van-collapse-item>
-                                                        </van-collapse>
-                                                </view>
+                                            </view>
+                                            <view
+                                                class="text-gray text-xl text-right margin-lr-xs animation-{{childrenItem.thumbsUpInfo.animation=='scale-up'?'scale-up':''}}"
+                                                data-comid="{{childrenItem.id}}" data-class="scale-up"
+                                                bindtap="thumbsUp" data-type="child" data-thumbs-index="{{imgIndex}}"
+                                                data-thumbs-childindex="{{childIndex}}"
+                                                data-isup="{{childrenItem.thumbsUpInfo.isUp}}"
+                                                data-thumbsid="{{childrenItem.thumbsUpInfo.id}}">
+                                                <text
+                                                    class="cuIcon-{{childrenItem.thumbsUpInfo.isUp?'appreciatefill':'appreciate'}} "></text>
+                                                {{childrenItem.thumbsUpInfo.count == 0 ?'':childrenItem.thumbsUpInfo.count}}
+                                            </view>
                                         </view>
-                                </view>
-                        </view>
-                </view>
-                <view class="no-more-goods " wx:if="{{!hasMore && nocomment == 1 }}">{{textNoMore}}</view>
-                <view class="no-comment " wx:if="{{ nocomment == 0 }}">{{textNoMore}}</view>
-        </scroll-view>
+                                        <view class="text-content text-sub "
+                                            style="font-size:28rpx;padding-left: 108rpx;">
+                                            {{childrenItem.body}}
+                                        </view>
+                                    </block>
+                                    <block wx:if="{{childrenItem.parentIdLength >= 3}}">
+                                        <view class="cu-item" style="height:120rpx;" bindlongpress="longPress"
+                                            id="{{childrenItem.id}}" data-publishid="{{childrenItem.publish_id}}"
+                                            data-com-index="{{imgIndex}}" data-com-childindex="{{childIndex}}"
+                                            data-longtype="child">
+                                            <view class="cu-avatar round xs">
+                                                <image class="cu-avatar round"
+                                                    src="{{(childrenItem.avatar == '' || childrenItem.avatar == null)?'/images/icon/default_avatar_big.png':childrenItem.avatar}}">
+                                                </image>
+                                            </view>
+                                            <view class="content flex-sub text-sub" style="left:110rpx;">
+                                                <view>
+                                                    <view class="child-font-size">
+                                                        {{childrenItem.niname}}
+                                                    </view>
+                                                    <text
+                                                        class="cuIcon-forwardfill padding-right-sm padding-left-sm"></text>
+                                                    <view class="child-font-size">
+                                                        {{childrenItem.recipient_name}}
+                                                    </view>
+                                                </view>
+                                                <view class="text-gray text-sm flex " style="justify-content:start">
+                                                    {{childrenItem.time}}
+                                                    <view bindtap="showRound" class="text-gray text-sm text-right "
+                                                        data-com-comid="{{childrenItem.id}}"
+                                                        data-com-publishid="{{childrenItem.publish_id}}"
+                                                        data-com-recipientid="{{childrenItem.recipient_id}}"
+                                                        data-com-recipientname="{{childrenItem.niname}}"
+                                                        data-com-parentid="{{childrenItem.parent_id}}"
+                                                        data-com-index="{{imgIndex}}"
+                                                        data-com-childindex="{{childIndex}}"
+                                                        style="padding-left:20rpx;padding-bottom:0rpx;">
+                                                        <text class="cuIcon-messagefill margin-lr-sub"></text>
+                                                        回复
+                                                    </view>
+                                                    <view style="clear:both;">
+                                                    </view>
+                                                </view>
 
+                                            </view>
+                                            <view
+                                                class="text-gray text-xl text-right margin-lr-xs animation-{{childrenItem.thumbsUpInfo.animation=='scale-up'?'scale-up':''}}"
+                                                data-comid="{{childrenItem.id}}" data-class="scale-up"
+                                                bindtap="thumbsUp" data-type="child" data-thumbs-index="{{imgIndex}}"
+                                                data-thumbs-childindex="{{childIndex}}"
+                                                data-isup="{{childrenItem.thumbsUpInfo.isUp}}"
+                                                data-thumbsid="{{childrenItem.thumbsUpInfo.id}}">
+                                                <text
+                                                    class="cuIcon-{{childrenItem.thumbsUpInfo.isUp?'appreciatefill':'appreciate'}} "></text>
+                                                {{childrenItem.thumbsUpInfo.count == 0 ?'':childrenItem.thumbsUpInfo.count}}
+                                            </view>
+                                        </view>
+                                        <view class="text-content" style="font-size:28rpx;padding-left: 108rpx;">
+                                            {{childrenItem.body}}
+                                        </view>
+                                    </block>
+                                </view>
+                            </van-collapse-item>
+                        </van-collapse>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="no-more-goods " wx:if="{{!hasMore && nocomment == 1 }}">{{textNoMore}}</view>
+        <view class="no-comment " wx:if="{{ nocomment == 0 }}">
+            <van-empty description="{{textNoMore}}" />
+        </view>
+    </scroll-view>
 </view>
 <view class="loading" style="height:{{sysHeight}}px" wx:else>
-        <image class="img" src="/images/icon/loading.gif"></image>
-        <view class="text">正在加载评论</view>
+    <image class="img" src="/images/icon/loading.gif"></image>
+    <view class="text">正在加载评论</view>
 </view>
+<van-loading custom-class="loadingMore" size="120rpx;" color="#1989fa" vertical wx:if="{{loadingMore}}">
+    加载中...
+</van-loading>
+<!-- <view class='cu-load load-modal' wx:if="{{loadingMore}}">
+  <view class='gray-text'>加载中...</view>
+</view> -->
+<!-- <view class="loading" style="" wx:if="{{loadingMore}}">
+    <image class="img" src="/images/icon/loading.gif"></image>
+    <view class="text">正在加载评论</view>
+</view> -->
 <van-dialog id="van-dialog" />
 <van-popup show="{{ show.round }}" round position="bottom" custom-style="height: 20%" bind:close="hideRound">
-        <view class="cu-form-group ">
-                <textarea auto-height="true" maxlength="200" class="addComment" value="{{commentObj.comContext}}"
-                        style="min-height:150rpx;max-height:500rpx;" cursor-spacing='200px' bindinput="addComment"
-                        auto-focus="{{autoFocus}}" show-confirm-bar="{{false}}" placeholder="留下点什么吧（最多200字）"></textarea>
-                <view class="text-right" style="align-self:baseline;padding:0rpx 20rpx" bindtap="sendComment"
-                        class="{{(commentObj.comContext == '')?'no-allow':'allow'}}">
-                        <view class=" text-sl ">
-                                <image class="cu-avatar"
-                                        src="{{(commentObj.comContext == '')?'/images/icon/send-grey.png':'/images/icon/send.png'}}" />
-                        </view>
-                </view>
+    <view class="cu-form-group ">
+        <textarea auto-height="true" maxlength="200" class="addComment" value="{{commentObj.comContext}}"
+            style="min-height:150rpx;max-height:500rpx;" cursor-spacing='200px' bindinput="addComment"
+            auto-focus="{{autoFocus}}" show-confirm-bar="{{false}}" placeholder="留下点什么吧（最多200字）"></textarea>
+        <view class="text-right" style="align-self:baseline;padding:0rpx 20rpx" bindtap="sendComment"
+            class="{{(commentObj.comContext == '')?'no-allow':'allow'}}">
+            <view class=" text-sl ">
+                <image class="cu-avatar"
+                    src="{{(commentObj.comContext == '')?'/images/icon/send-grey.png':'/images/icon/send.png'}}" />
+            </view>
         </view>
+    </view>
 </van-popup>
