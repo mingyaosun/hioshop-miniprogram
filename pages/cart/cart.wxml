@@ -3,14 +3,14 @@
 		<view class="a-goods {{item.isTouchMove ? 'touch-move-active' : ''}}" wx:for="{{cartGoods}}" wx:key="id" bindtouchstart="touchstart" bindtouchmove="touchmove" data-index="{{index}}">
 			<view class='content'>
 				<view wx:if="{{item.number >0 && item.is_on_sale == 1}}" class="checkbox" bindtap="checkedItem" data-item-index="{{index}}">
-					<image wx:if="{{item.checked == 1}}" class="checkbox-img" src="/images/icon/gou-red.png"></image>
-					<image wx:else class="checkbox-img" src="/images/icon/gou-gray.png"></image>
+					<!-- <image wx:if="{{item.checked == 1}}" class="checkbox-img" src="/images/icon/gou-red.png"></image>
+					<image wx:else class="checkbox-img" src="/images/icon/gou-gray.png"></image> -->
 				</view>
 				<image src="/images/icon/gou-gray.png" wx:else class="checkbox"></image>
 				<view class="goods-info">
 					<navigator class="goods-url" hover-class="none" url="/pages/goods/goods?id={{item.goods_id}}">
 						<view class="img-box">
-							<image src="{{item.list_pic_url}}" class="img" />
+							<image src="{{item.list_pic_url}}" class="img"  mode="aspectFill" style="border-radius: 8rpx;"/>
 						</view>
 						<view class="text-box">
 							<view class="{{item.number >0 && item.is_on_sale == 1?'goods-title':'out-stock-title'}}">{{item.goods_name}}</view>

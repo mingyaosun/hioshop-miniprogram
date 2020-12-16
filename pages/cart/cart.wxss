@@ -79,7 +79,9 @@ page {
     display: block;
     height: 40rpx;
     min-width: 40rpx;
-    padding: 100rpx 40rpx;
+    /* padding: 100rpx 40rpx; */
+    padding: 100rpx 0rpx;
+
 }
 
 .a-goods .checkbox .checkbox-img{
@@ -114,7 +116,8 @@ page {
 }
 
 .goods-info .text-box {
-    width: 440rpx;
+    /* width: 440rpx; */
+    width: 500rpx;
     position: relative;
 }
 

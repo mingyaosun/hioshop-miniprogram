@@ -4,6 +4,7 @@ var util = require('../../utils/util.js');
 var timer = require('../../utils/wxTimer.js');
 var api = require('../../config/api.js');
 const user = require('../../services/user.js');
+var thumbsPop = require('../../utils/thumbs.pop.js');
 Page({
     data: {
         id: 0,
@@ -350,6 +351,17 @@ Page({
             id: id, // 这个是商品id
             valueId: id,
         });
+        let that = this;
+        setTimeout(function () {
+            wx.createSelectorQuery()
+                .select('#canvas')
+                .fields({
+                    node: true,
+                    size: true,
+                })
+                .exec(that.init.bind(that))
+        }, 2000)
+
     },
     onShow: function () {
         var that = this;
@@ -631,4 +643,12 @@ Page({
             url: '/pages/comment-add/comment-add?id=' + that.data.id
         });
     },
+    init(res) {
+
+        console.log('rerererwe', res)
+        thumbsPop.loadCanvas(res);
+    },
+    thumbsUp() {
+        thumbsPop.onClickImage();
+    }
 })
