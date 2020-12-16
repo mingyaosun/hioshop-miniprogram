@@ -47,8 +47,12 @@
             </view>
         </view>
         <view class="r">
-            <view class='stock'>库存{{goods.goods_number}}</view>
-            <view class='sales'>已售{{goods.sell_volume}}份</view>
+            <view class="flex " style="align-items:center;">
+                <image class='icon' src="/images/icon/like.png" style="height:40rpx;width:40rpx;"></image>
+                <view class='icon-text padding-lr-xs'>{{goods.goodsThumbsInfo.count}}</view>
+            </view>
+            <!-- <view class='stock'>库存{{goods.goods_number}}</view> -->
+            <!-- <view class='sales'>已售{{goods.sell_volume}}份</view> -->
         </view>
     </view>
     <view class='section-nav' bindtap="switchAttrPop">
@@ -181,24 +185,20 @@
                 <view class='icon-text'>客服</view>
             </button> -->
             <view class="left-icon" bindtap='openCartPage'>
-                <text class="cart-count">{{cartGoodsCount}}</text>
+                <text class="cart-count" wx:if="{{cartGoodsCount != 0}}">{{cartGoodsCount}}</text>
                 <image class='icon' src='/images/nav/icon-fav-b.png'></image>
                 <view class='icon-text'>收藏夹</view>
             </view>
-            <view class="left-icon" bindtap='thumbsUp'>
+            <view class="left-icon animation-{{goods.goodsThumbsInfo.animation=='scale-up'?'scale-up':''}}" bindtap='thumbsUp'
+                data-class="scale-up" data-isup="{{goods.goodsThumbsInfo.isUp}}" data-goods-thumbsid="{{goods.goodsThumbsInfo.id}}">
                 <!-- <text class="cart-count">{{upCount}}</text> -->
-                <image class='icon' src='/images/icon/up.png'></image>
-                <view class='icon-text'>点赞</view>
+                <image class='icon' src="{{goods.goodsThumbsInfo.isUp?'/images/icon/like-s.png':'/images/icon/like.png'}}"></image>
+                <view class='icon-text'>喜欢</view>
             </view>
             <view class="left-icon" bindtap='openCommentAddPage'>
-                <!-- <text class="cart-count">{{commentCount}}</text> -->
+                <text class="cart-count" wx:if="{{commentCount != 0}}">{{commentCount}}</text>
                 <image class='icon' src='/images/icon/comment.png'></image>
                 <view class='icon-text'>评论</view>
-            </view>
-        </view>
-        <view class="v-body">
-            <view class="v-canvas">
-                <canvas type="2d" id="canvas" style="{{canvas_style}}" class="myCanvas"></canvas>
             </view>
         </view>
         <block wx:if="{{goods.goods_number > 0 && goods.is_on_sale == 1}}">
@@ -244,3 +244,8 @@
     <image class="img" src="/images/icon/loading.gif"></image>
     <view class="text">正在寻找趣味</view>
 </view>
+<!-- <view class="">
+    <view class="v-canvas">
+        <canvas type="2d" id="canvas" style="{{canvas_style}}" class="myCanvas"></canvas>
+    </view>
+</view> -->

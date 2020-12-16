@@ -1,7 +1,7 @@
 @import "../../lib/wxParse/wxParse.wxss";
 @import "/colorui/main.wxss";
 @import "/colorui/icon.wxss";
-@import "./thumbs.wxss";
+@import "/colorui/animation.wxss";
 
 
 /* page{

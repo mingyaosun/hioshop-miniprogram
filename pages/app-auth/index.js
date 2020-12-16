@@ -17,6 +17,7 @@ Page({
             wx.navigateBack();
         };
     },
+    onUnload: function () { getApp().data.isready = false; },
     getUserInfo: function (e) {
         app.globalData.userInfo = e.detail.userInfo
         user.loginByWeixin().then(res => {

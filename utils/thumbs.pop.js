@@ -1,42 +1,45 @@
 //运动轨迹坐标
-var data = [[{ x: 30, y: 400 }, { x: 70, y: 300 }, { x: -50, y: 150 }, { x: 30, y: 0 }], [{ x: 30, y: 400 }, { x: 30, y: 300 }, { x: 80, y: 150 }, { x: 30, y: 0 }], [{ x: 30, y: 400 }, { x: 0, y: 90 }, { x: 80, y: 100 }, { x: 30, y: 0 }]];
-var timer = null;//定时器
-var canvas = null;//画布
-var ctx = null;//画布上下文
+let dataPoint = [[{ x: 30, y: 400 }, { x: 70, y: 300 }, { x: -50, y: 150 }, { x: 30, y: 0 }], [{ x: 30, y: 400 }, { x: 30, y: 300 }, { x: 80, y: 150 }, { x: 30, y: 0 }], [{ x: 30, y: 400 }, { x: 0, y: 90 }, { x: 80, y: 100 }, { x: 30, y: 0 }]];
+let timer = null;//定时器
+let canvas = null;//画布
+let ctx = null;//画布上下文
+let factor = {
+        speed: .008,  // 运动速度，值越小越慢
+        t: 0    //  贝塞尔函数系数
+};
 
-function loadCanvas(res) {
-debugger
+function loadCanvas(_this, res) {
         canvas = res[0].node
         ctx = canvas.getContext('2d')
 
         const img = canvas.createImage()
         img.onload = () => {
-                this._img = img
+                _this._img = img
         }
-        img.src = './heart1.png'
+        img.src = '/images/icon/heart1.png'
 
         const img1 = canvas.createImage()
         img1.onload = () => {
-                this._img1 = img1
+                _this._img1 = img1
         }
-        img1.src = './heart2.png'
+        img1.src = '/images/icon/heart2.png'
 
         const img2 = canvas.createImage()
         img2.onload = () => {
-                this._img2 = img2
+                _this._img2 = img2
         }
-        img2.src = './heart3.png'
+        img2.src = '/images/icon/heart3.png'
 
 }
 
-function render(canvas, ctx) {
+function render(_this, canvas, ctx) {
         ctx.clearRect(0, 0, 600, 600)
-        this.drawCar(ctx)
+        drawCar(_this, ctx)
 }
 
-function onClickImage() {
+function onClickImage(_this) {
         const renderLoop = () => {
-                this.render(canvas, ctx)
+                render(_this, canvas, ctx)
                 timer = canvas.requestAnimationFrame(renderLoop)
         }
         timer = canvas.requestAnimationFrame(renderLoop)
@@ -46,12 +49,10 @@ function onClickImage() {
                 ctx.clearRect(0, 0, 600, 600)
         }, 2090)
 }
-function drawCar(ctx) {
-        if (!this._img) return
-        if (this.x > 350) {
-                this.x = -100
-        }
-        let data = this.data.data;
+function drawCar(_this, ctx) {
+
+        if (!_this._img) return
+        let data = dataPoint;
         var p10 = data[0][0];   // 三阶贝塞尔曲线起点坐标值
         var p11 = data[0][1];   // 三阶贝塞尔曲线第一个控制点坐标值
         var p12 = data[0][2];   // 三阶贝塞尔曲线第二个控制点坐标值
@@ -108,24 +109,22 @@ function drawCar(ctx) {
         var yt3 = ay3 * (t * t * t) + by3 * (t * t) + cy3 * t + p30.y;
         console.log('yt3', yt3)
         factor.t += factor.speed;
-        ctx.drawImage(this._img, xt1, yt1, 30, 30)
-        ctx.drawImage(this._img1, xt2, yt2, 30, 30)
-        ctx.drawImage(this._img2, xt3, yt3, 30, 30)
+        ctx.drawImage(_this._img, xt1, yt1, 100, 30)
+        ctx.drawImage(_this._img1, xt2, yt2, 100, 30)
+        ctx.drawImage(_this._img2, xt3, yt3, 100, 30)
         ctx.restore()
-        if (yt3 == 2.379100159999666) {
-                cancelAnimationFrame(timer);
-        } else {
-                if (factor.t > 1) {
-                        factor.t = 0;
-                        cancelAnimationFrame(timer);
 
-                }
+        if (factor.t > 1) {
+                factor.t = 0;
+                cancelAnimationFrame(timer);
+
         }
+
 
 }
 
 module.exports = {
-        loadCanvas:loadCanvas,
-        onClickImage:onClickImage
+        loadCanvas: loadCanvas,
+        onClickImage: onClickImage
 
 }

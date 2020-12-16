@@ -4,7 +4,7 @@ var util = require('../../utils/util.js');
 var timer = require('../../utils/wxTimer.js');
 var api = require('../../config/api.js');
 const user = require('../../services/user.js');
-var thumbsPop = require('../../utils/thumbs.pop.js');
+
 Page({
     data: {
         id: 0,
@@ -38,6 +38,8 @@ Page({
         commentCount: 0,
         upCount: 0,
         total: 0,
+        animation: '',//点击小心心动画
+        isUp: false,//是否点击
 
     },
     hideDialog: function (e) {
@@ -145,6 +147,7 @@ Page({
                 } else {
                     that.setData({
                         nocomment: true,
+                        commentCount: 0
                     });
                 }
                 let galleryImages = [];
@@ -351,18 +354,8 @@ Page({
             id: id, // 这个是商品id
             valueId: id,
         });
-        let that = this;
-        setTimeout(function () {
-            wx.createSelectorQuery()
-                .select('#canvas')
-                .fields({
-                    node: true,
-                    size: true,
-                })
-                .exec(that.init.bind(that))
-        }, 2000)
-
     },
+
     onShow: function () {
         var that = this;
         if (app.data.isready) {
@@ -372,7 +365,7 @@ Page({
                 for (var i = 0; i < res[0].length; i++) {
                     that.wxParseImgLoad2(res[0][i]);
                 }
-            })
+            });
         } else {
             let userInfo = wx.getStorageSync('userInfo');
             let info = wx.getSystemInfoSync();
@@ -643,12 +636,31 @@ Page({
             url: '/pages/comment-add/comment-add?id=' + that.data.id
         });
     },
-    init(res) {
+    //点击
+    thumbsUp(e) {
+        let that = this;
+        let userInfo = wx.getStorageSync('userInfo');
+        if (userInfo == '') {
+            util.loginNow();
+            return false;
+        } else {
+            let isUp = e.currentTarget.dataset.isup;//点赞状态
+            let animation = e.currentTarget.dataset.class
+            let goods = that.data.goods;
+            let goodsThumbsId = goods.goodsThumbsInfo.id;
+            goods.goodsThumbsInfo.animation = animation;
+            goods.goodsThumbsInfo.isUp = !isUp;
+            this.setData({
+                goods: goods
+            })
 
-        console.log('rerererwe', res)
-        thumbsPop.loadCanvas(res);
+            goods.goodsThumbsInfo.animation = '';
+            setTimeout(function () {
+                that.setData({
+                    goods: goods
+                })
+            }, 1000)
+        }
+
     },
-    thumbsUp() {
-        thumbsPop.onClickImage();
-    }
 })
