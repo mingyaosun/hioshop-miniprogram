@@ -97,7 +97,6 @@ Page({
                 let totalCount = res.data.commentList.count + res.data.commentList.otherCount;//总条数
                 let totalPages = res.data.commentList.totalPages;//总页数
                 let _commentList = res.data.commentList.data;//返回数据条数
-                console.log(_commentList);
                 let nocommentimg = that.data.nocommentimg;
                 if (_commentList && _commentList.length > 0) {
                     that.setData({
@@ -220,7 +219,6 @@ Page({
         let comIndex = e.currentTarget.dataset.comIndex;//最外层的父评论索引
         let comChildindex = e.currentTarget.dataset.comChildindex;//子评论索引
         let longtype = e.currentTarget.dataset.longtype;//长按删除的评论类型，parent最外层父评论，child 为子评论
-        console.log('long', e)
         if (userInfo && userInfo.id == publishId) {//已经登陆的情况下，可以删除当前长按的，自己发表的评论
             Dialog.confirm({
                 title: '提示',
@@ -276,10 +274,6 @@ Page({
                 Dialog.close();
             });
         }
-        console.log('cardId====== ', cardId)
-        console.log('publishId====== ', publishId)
-        console.log('userInfo.id====== ', userInfo.id)
-        console.log('index====== ', index)
     },
     onOpen(event) {
         let that = this;
@@ -288,7 +282,6 @@ Page({
             comId: event.currentTarget.dataset.comComid
         }).then(function (res) {
             if (res.errno === 0) {
-                console.log('子评论', res.data.childrenCommentsList)
                 let childrenComments = that.data.childrenComments;
                 let _childrenComments = res.data.childrenCommentsList;
                 // util.wl_changeTime
@@ -300,7 +293,6 @@ Page({
                 that.setData({
                     childrenComments: childrenComments
                 })
-                console.log(that.data.childrenComments)
                 //折叠面板
                 let activeName1 = that.data.activeName1;
                 const { key1 } = event.currentTarget.dataset;
@@ -311,8 +303,6 @@ Page({
                 that.setData({
                     activeName1: activeName1
                 });
-                console.log('activeName1--open', that.data.activeName1)
-                console.log('open', event)
             }
         });
 
@@ -328,8 +318,6 @@ Page({
         this.setData({
             activeName1: activeName1
         });
-        console.log('activeName1--close', this.data.activeName1)
-        console.log('close', event)
     },
     /**
      * 添加评论内容
@@ -345,7 +333,6 @@ Page({
      * @param {*} e 
      */
     showRound(e) {
-        console.log('showRound ', e)
         // 判断是否登录，如果没有登录，则登录
         util.loginNow();
         let userInfo = wx.getStorageSync('userInfo');
@@ -372,7 +359,6 @@ Page({
             'commentObj.comParentid': e.currentTarget.dataset.comParentid,//这条评论的父id
         });
         this.toggle('round', true);
-        console.log(this.data)
     },
 
     hideRound() {
@@ -399,7 +385,6 @@ Page({
      * @param {}} e 
      */
     sendComment(e) {
-        console.log('commentObj ', this.data.commentObj)
         let that = this;
         let comIndex = that.data.comIndex;
         let comChildindex = that.data.comChildindex;
@@ -429,9 +414,7 @@ Page({
                         let addedComment = res.data.addedComment;
                         //处理时间
                         addedComment.forEach(function (item, index) {
-                            console.log('before', item.time)
                             item.time = util.wl_changeTime(item.time)
-                            console.log('after', item.time)
                         })
                         let oldChildrenComments = that.data.childrenComments;
                         if (comChildindex != undefined && comChildindex != '') {
@@ -451,7 +434,6 @@ Page({
                             //动态修改评论条数
                             commentList[comIndex].childrenCount = commentList[comIndex].childrenCount + 1;
                         }
-                        console.log(that.data.childrenComments)
                         that.setData({
                             'commentObj.comContext': '',
                             commentList: commentList,
@@ -501,8 +483,6 @@ Page({
                 childrenComments: childrenComments
             });
         }
-        console.log('thumbs-p', that.data.commentList)
-        console.log('thumbs-c', that.data.childrenComments)
 
         util.request(api.ThumbsUpAdd, {
             currentUserId: currentUserId,
@@ -560,15 +540,12 @@ Page({
                             childrenComments: childrenComments
                         })
                     },1000)
-                    
                 }
-
             } else {
 
             }
         });
 
-        console.log('thumbs', e)
     },
 
 })

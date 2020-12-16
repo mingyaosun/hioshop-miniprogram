@@ -60,6 +60,7 @@ page {
 }
 
 .print-goods .item .img {
+    border-radius: 8rpx;
     width: 320rpx;
     height: 320rpx;
     position: relative;
@@ -187,8 +188,8 @@ page {
 
 .cancel-print {
     position: absolute;
-    top: 20rpx;
-    right: 20rpx;
+    top: 30rpx;
+    right: 35rpx;
     width: 46rpx;
     height: 46rpx;
     z-index: 999;

@@ -7,7 +7,7 @@
             <navigator hover-class='none' data-index="{{index}}" data-iindex="{{iindex}}" wx:for="{{item}}" wx:for-index="iindex" wx:for-item="iitem" class="item {{iindex % 2 == 0 ? 'left' : 'right'}}" wx:key="iitemId" url="/pages/goods/goods?id={{iitem.goods_id}}">
                 <image src="/images/icon/trash-9.png" data-val="{{iitem.id}}" class='cancel-print' catchtap='deletePrint'></image>
                 <view class="box">
-                    <image class="img" src="{{iitem.goods.list_pic_url}}" background-size="cover">
+                    <image class="img" src="{{iitem.goods.list_pic_url}}" background-size="cover" mode="aspectFill">
                         <block wx:if="{{iitem.goods.goods_number == 0}}">
                             <!-- <view class='no-goods-mask'></view> -->
                             <view class='sold-img'>

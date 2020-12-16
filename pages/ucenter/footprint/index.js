@@ -57,7 +57,7 @@ Page({
         util.request(api.FootprintDelete, { footprintId: id }, 'POST').then(function (res) {
             if (res.errno === 0) {
                 wx.showToast({
-                    title: '取消成功',
+                    title: '删除足迹成功',
                     icon: 'success',
                     mask: true
                 });

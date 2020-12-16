@@ -8,7 +8,11 @@ const user = require('../../services/user.js');
 Page({
     data: {
         id: 0,
-        goods: {},
+        goods: {
+            goodsThumbsInfo:{
+                count:0
+            }
+        },
         gallery: [],
         gallerynow: [],
         galleryImages: [],
@@ -126,7 +130,6 @@ Page({
                 let _commentList = res.data.commentList.data;
                 let totalCount = res.data.commentList.count + res.data.commentList.otherCount;
                 // 如果仅仅存在一种货品，那么商品页面初始化时默认checked
-                console.log(_commentList);
                 let nocommentimg = that.data.nocommentimg;
                 if (_commentList && _commentList.length > 0) {
                     that.setData({
@@ -136,13 +139,11 @@ Page({
                     for (var temp101 = 0; temp101 < _commentList.length; temp101++) {
                         _commentList[temp101].time = util.wl_changeTime(_commentList[temp101].time);
                         if (_commentList[temp101].list.length > 0) {
-                            console.log(_commentList[temp101].id);
                             nocommentimg[_commentList[temp101].id + ''] = false;
                         } else {
                             nocommentimg[_commentList[temp101].id + ''] = true;
                         }
                     }
-                    console.log(nocommentimg);
                     that.setData({ nocommentimg });
                 } else {
                     that.setData({
@@ -343,13 +344,11 @@ Page({
     onLoad: function (options) {
         let id = 0;
         var scene = decodeURIComponent(options.scene);
-        console.log(scene);
         if (scene != 'undefined') {
             id = scene;
         } else {
             id = options.id;
         }
-        console.log(id);
         this.setData({
             id: id, // 这个是商品id
             valueId: id,
@@ -647,30 +646,40 @@ Page({
             let isUp = e.currentTarget.dataset.isup;//点赞状态
             let animation = e.currentTarget.dataset.class
             let goods = that.data.goods;
-            let goodsThumbsId = goods.goodsThumbsInfo.id;
+            let goodsThumbsId = e.currentTarget.dataset.goodsThumbsid;
             goods.goodsThumbsInfo.animation = animation;
             goods.goodsThumbsInfo.isUp = !isUp;
 
             util.request(api.GoodsThumbs, {
-                goodsId: goods.goodsThumbsInfo.goods_id,
+                goodsId: goods.id,
                 isUp: !isUp,
-                goodsThumbsId: goods.goodsThumbsInfo.id
+                goodsThumbsId: goodsThumbsId
             }, 'POST').then(function (res) {
                 let _res = res;
                 if (_res.errno == 0) {
+                    goods.goodsThumbsInfo.id = res.data.goodsThumbsId;
+                    if(goods.goodsThumbsInfo.isUp){
+                        if (goods.goodsThumbsInfo.count == undefined) {
+                            goods.goodsThumbsInfo.count = 1;
+                        } else {
+                            goods.goodsThumbsInfo.count++;
+                        }
+                    }else{
+                        goods.goodsThumbsInfo.count --
+                    }
+                    that.setData({
+                        goods: goods
+                    })
+
+                    goods.goodsThumbsInfo.animation = '';
+                    setTimeout(function () {
+                        that.setData({
+                            goods: goods
+                        })
+                    }, 1000)
                 }
             });
 
-            this.setData({
-                goods: goods
-            })
-
-            goods.goodsThumbsInfo.animation = '';
-            setTimeout(function () {
-                that.setData({
-                    goods: goods
-                })
-            }, 1000)
         }
 
     },

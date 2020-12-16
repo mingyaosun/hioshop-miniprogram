@@ -23,7 +23,7 @@
     </view>
     <view class='marquee_box' wx:if="{{notice.length>0 && show_notice == 1}}">
         <swiper vertical="{{true}}" class="notice-swiper" indicator-dots="{{false}}" autoplay="{{autoplay}}"
-            interval="2000" duration="1000">
+            interval="3000" duration="1500">
             <swiper-item wx:for="{{notice}}" wx:key="id" class='notice-wrap'>
 
                 <view class="icon">

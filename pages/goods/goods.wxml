@@ -48,7 +48,7 @@
         </view>
         <view class="r">
             <view class="flex " style="align-items:center;">
-                <image class='icon' src="/images/icon/like.png" style="height:40rpx;width:40rpx;"></image>
+                <image class='icon' src="/images/icon/like-s.png" style="height:40rpx;width:40rpx;"></image>
                 <view class='icon-text padding-lr-xs'>{{goods.goodsThumbsInfo.count}}</view>
             </view>
             <!-- <view class='stock'>库存{{goods.goods_number}}</view> -->
