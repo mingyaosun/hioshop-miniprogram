@@ -13,10 +13,10 @@
         <swiper class="banner" easing-function="easeInOutCubic" indicator-dots="true" autoplay="{{autoplay}}" interval="3000" duration="1000" indicator-active-color="white"  >
             <swiper-item wx:for="{{banner}}" wx:key="id">
                 <navigator wx:if="{{item.link_type == 0}}" url="/pages/goods/goods?id={{item.goods_id}}">
-                    <image src="{{item.image_url}}" background-size="cover"></image>
+                    <image src="{{item.image_url}}" mode='aspectFill' background-size="cover"></image>
                 </navigator>
                 <navigator wx:elif="{{item.link_type == 1}}" url="{{item.link}}">
-                    <image src="{{item.image_url}}" background-size="cover"></image>
+                    <image src="{{item.image_url}}" mode='aspectFill' background-size="cover"></image>
                 </navigator>
             </swiper-item>
         </swiper>
