@@ -1,6 +1,6 @@
 // const ApiRootUrl = 'http://192.168.3.16:8360/api/';
-// const ApiRootUrl = 'http://localhost:8360/api/';
-const ApiRootUrl = 'https://www.sunmingyao.com:18360/api/';
+const ApiRootUrl = 'http://localhost:8360/api/';
+// const ApiRootUrl = 'https://www.sunmingyao.com:18360/api/';
 
 module.exports = {
     // 登录
@@ -62,7 +62,8 @@ module.exports = {
     ChildrenComments: ApiRootUrl + 'goods/childrenComments',//获得子评论
 
     //点赞功能
-    ThumbsUpAdd: ApiRootUrl + 'goods/addThumbsUp',//点赞
+    ThumbsUpAdd: ApiRootUrl + 'goods/addThumbsUp',//評論点赞
+    GoodsThumbs: ApiRootUrl + 'goods/goodsThumbs',//商品点赞
 
 
 };

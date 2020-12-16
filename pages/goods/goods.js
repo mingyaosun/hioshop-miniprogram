@@ -650,6 +650,17 @@ Page({
             let goodsThumbsId = goods.goodsThumbsInfo.id;
             goods.goodsThumbsInfo.animation = animation;
             goods.goodsThumbsInfo.isUp = !isUp;
+
+            util.request(api.GoodsThumbs, {
+                goodsId: goods.goodsThumbsInfo.goods_id,
+                isUp: !isUp,
+                goodsThumbsId: goods.goodsThumbsInfo.id
+            }, 'POST').then(function (res) {
+                let _res = res;
+                if (_res.errno == 0) {
+                }
+            });
+
             this.setData({
                 goods: goods
             })
