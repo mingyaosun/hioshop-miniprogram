@@ -113,8 +113,13 @@
         <view class="title">详情</view>
         <view class="show">
             <view class='details-image-wrap'>
-                <import src="../../lib/wxParse/wxParse.wxml" />
-                <template is="wxParse" data="{{wxParseData:goodsDetail.nodes}}" />
+                <view wx:if="{{hasGoodsDesc}}">
+                    <import src="../../lib/wxParse/wxParse.wxml" />
+                    <template is="wxParse" data="{{wxParseData:goodsDetail.nodes}}" />
+                </view>
+                <view class="no-more-goods price-info" wx:else>
+                    暂无详情
+                </view>
             </view>
         </view>
     </view>
@@ -189,10 +194,12 @@
                 <image class='icon' src='/images/nav/icon-fav-b.png'></image>
                 <view class='icon-text'>收藏夹</view>
             </view>
-            <view class="left-icon animation-{{goods.goodsThumbsInfo.animation=='scale-up'?'scale-up':''}}" bindtap='thumbsUp'
-                data-class="scale-up" data-isup="{{goods.goodsThumbsInfo.isUp}}" data-goods-thumbsid="{{goods.goodsThumbsInfo.id}}">
+            <view class="left-icon animation-{{goods.goodsThumbsInfo.animation=='scale-up'?'scale-up':''}}"
+                bindtap='thumbsUp' data-class="scale-up" data-isup="{{goods.goodsThumbsInfo.isUp}}"
+                data-goods-thumbsid="{{goods.goodsThumbsInfo.id}}">
                 <!-- <text class="cart-count">{{upCount}}</text> -->
-                <image class='icon' src="{{goods.goodsThumbsInfo.isUp?'/images/icon/like-s.png':'/images/icon/like.png'}}"></image>
+                <image class='icon'
+                    src="{{goods.goodsThumbsInfo.isUp?'/images/icon/like-s.png':'/images/icon/like.png'}}"></image>
                 <view class='icon-text'>喜欢</view>
             </view>
             <view class="left-icon" bindtap='openCommentAddPage'>

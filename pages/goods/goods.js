@@ -9,8 +9,8 @@ Page({
     data: {
         id: 0,
         goods: {
-            goodsThumbsInfo:{
-                count:0
+            goodsThumbsInfo: {
+                count: 0
             }
         },
         gallery: [],
@@ -44,6 +44,7 @@ Page({
         total: 0,
         animation: '',//点击小心心动画
         isUp: false,//是否点击
+        hasGoodsDesc: false,//是否有详情
 
     },
     hideDialog: function (e) {
@@ -167,7 +168,17 @@ Page({
                     galleryImages: galleryImages,
                     loading: 1
                 });
-                WxParse.wxParse('goodsDetail', 'html', res.data.info.goods_desc, that);
+                
+                if (res.data.info.goods_desc != "") {
+                    that.setData({
+                        hasGoodsDesc: true
+                    })
+                    WxParse.wxParse('goodsDetail', 'html', res.data.info.goods_desc, that);
+                } else {
+                    that.setData({
+                        hasGoodsDesc: false
+                    })
+                }
                 wx.setStorageSync('goodsImage', res.data.info.list_pic_url);
             }
             else {
@@ -658,14 +669,14 @@ Page({
                 let _res = res;
                 if (_res.errno == 0) {
                     goods.goodsThumbsInfo.id = res.data.goodsThumbsId;
-                    if(goods.goodsThumbsInfo.isUp){
+                    if (goods.goodsThumbsInfo.isUp) {
                         if (goods.goodsThumbsInfo.count == undefined) {
                             goods.goodsThumbsInfo.count = 1;
                         } else {
                             goods.goodsThumbsInfo.count++;
                         }
-                    }else{
-                        goods.goodsThumbsInfo.count --
+                    } else {
+                        goods.goodsThumbsInfo.count--
                     }
                     that.setData({
                         goods: goods
