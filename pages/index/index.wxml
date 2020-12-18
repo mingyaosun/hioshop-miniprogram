@@ -88,7 +88,7 @@
                     wx:for-index="iindex" wx:for-item="iitem" wx:key="id">
                     <navigator hover-class='none' class='navi-url' url="/pages/goods/goods?id={{iitem.id}}">
                         <view class="box">
-                            <image src="{{iitem.list_pic_url}}" class="image" mode="aspectFill">
+                            <image src="{{iitem.list_pic_url}}" class="image" >
                                 <view wx:if="{{iitem.is_new == 1}}" class='new-tag'>新品</view>
                             </image>
                             <block wx:if="{{iitem.goods_number <= 0}}">
