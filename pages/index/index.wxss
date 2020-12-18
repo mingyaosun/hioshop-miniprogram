@@ -302,7 +302,17 @@
     border-radius: 8rpx;
     background: #f9f9f9;
 }
-
+.image-view{
+    width: 210rpx;
+    height: 210rpx;
+    border-radius: 8rpx;
+    background: #f9f9f9;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+}
 .new-box .navi-url .box {
     height: 210rpx;
     width: 210rpx;

@@ -91,6 +91,9 @@
                             <image src="{{iitem.list_pic_url}}" class="image" >
                                 <view wx:if="{{iitem.is_new == 1}}" class='new-tag'>新品</view>
                             </image>
+                            <!-- <view  class="image-view" style="background-image:url('{{iitem.list_pic_url}}')">
+                                <view wx:if="{{iitem.is_new == 1}}" class='new-tag'>新品</view>
+                            </view> -->
                             <block wx:if="{{iitem.goods_number <= 0}}">
                                 <view class='sold-img'>
                                     <image class='soldout' src='/images/icon/sold-out.png'></image>
