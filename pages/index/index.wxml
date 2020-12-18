@@ -85,7 +85,7 @@
             </view>
             <view class='list-wrap clearfix'>
                 <view class="new-box {{(iindex+1)%3 == 0?'no-margin':''}}" wx:for="{{item.goodsList}}"
-                    wx:for-index="iindex" wx:for-item="iitem" wx:key="id">
+                    wx:for-index="iindex" wx:for-item="iitem" wx:key="id" wx:if="{{iindex < 9}}">
                     <navigator hover-class='none' class='navi-url' url="/pages/goods/goods?id={{iitem.id}}">
                         <view class="box">
                             <image src="{{iitem.list_pic_url}}" class="image" >
