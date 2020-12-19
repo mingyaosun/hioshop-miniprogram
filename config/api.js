@@ -1,6 +1,6 @@
 // const ApiRootUrl = 'http://192.168.3.16:8360/api/';
-const ApiRootUrl = 'http://localhost:8360/api/';
-// const ApiRootUrl = 'https://www.sunmingyao.com:18360/api/';
+// const ApiRootUrl = 'http://localhost:8360/api/';
+const ApiRootUrl = 'https://www.sunmingyao.com:18360/api/';
 
 module.exports = {
     // 登录
