@@ -210,10 +210,7 @@
         </view>
         <block wx:if="{{goods.goods_number > 0 && goods.is_on_sale == 1}}">
             <block wx:if="{{goodsNumber > 0}}">
-                <!-- <view class="to-cart-btn" bindtap='addToCart'>加入收藏夹</view> -->
-                <!-- <view class="to-pay-btn" bindtap='fastToCart'>立即购买</view> -->
                 <view class="to-cart-coll" bindtap='addToCart'>加入收藏夹</view>
-
             </block>
             <block wx:if="{{goodsNumber <= 0 }}">
                 <view class="cart-empty">趣味已抢光</view>
