@@ -10,7 +10,7 @@
             <view class="item {{ nowId == 0 ?'active' : ''}}" bindtap="switchCate" data-id="0">全部</view>
             <view class="item {{ nowId == item.id?'active' : ''}}" wx:for="{{navList}}" wx:key="id" data-id="{{item.id}}" bindtap="switchCate">{{item.name}}</view>
         </scroll-view>
-        <scroll-view class="cate" scroll-y="true" bindscrolltolower="onBottom" show-scrollbar="{{false}}" paging-enabled="{{true}}" enhanced="{{true}}">
+        <scroll-view class="cate" scroll-y="true" bindscrolltolower="onBottom" lower-threshold="50" show-scrollbar="{{false}}" paging-enabled="{{true}}" enhanced="{{true}}" style="height:95vh;">
             <block wx:if="{{loading == 0}}">
                 <view class='banner-container' wx:if="{{nowId!= 0 && index_banner_img == 1}}">
                     <image mode='aspectFill' style="width:100%;height:{{currentCategory.p_height}}rpx" src='{{currentCategory.img_url}}'>
