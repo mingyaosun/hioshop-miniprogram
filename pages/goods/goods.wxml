@@ -16,7 +16,7 @@
             <swiper bindchange="bindchange" class="banner banner-style1" indicator-dots="{{false}}" autoplay="{{true}}"
                 current="{{current}}" circular="{{true}}" interval="3000" duration="1000" display-multiple-items="1">
                 <swiper-item class="item" wx:for="{{gallery}}" wx:key="id">
-                    <image bindtap="previewImage" data-src="{{item.img_url}}" src="{{item.img_url}}" class="slide-image"
+                    <image lazy-load="true" bindtap="previewImage" data-src="{{item.img_url}}" src="{{item.img_url}}" class="slide-image"
                         mode="aspectFill" />
                 </swiper-item>
             </swiper>
@@ -94,7 +94,7 @@
                             <view class="grid col-4 grid-square flex-sub">
                                 <view class="bg-img" wx:for="{{item.list}}" wx:key="id" data-imgIndex="{{imgIndex}}"
                                     bindtap="ViewImage" data-url="{{item.url}}">
-                                    <image data-src="{{item.url}}" src="{{item.url}}" mode='aspectFill'>
+                                    <image lazy-load="true" data-src="{{item.url}}" src="{{item.url}}" mode='aspectFill'>
                                     </image>
                                 </view>
                             </view>

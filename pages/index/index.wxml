@@ -13,10 +13,10 @@
         <swiper class="banner" easing-function="easeInOutCubic" indicator-dots="true" autoplay="{{autoplay}}" interval="3000" duration="1000" indicator-active-color="white"  >
             <swiper-item wx:for="{{banner}}" wx:key="id">
                 <navigator wx:if="{{item.link_type == 0}}" url="/pages/goods/goods?id={{item.goods_id}}">
-                    <image src="{{item.image_url}}" mode='aspectFill' background-size="cover"></image>
+                    <image lazy-load="true" src="{{item.image_url}}" mode='aspectFill' background-size="cover"></image>
                 </navigator>
                 <navigator wx:elif="{{item.link_type == 1}}" url="{{item.link}}">
-                    <image src="{{item.image_url}}" mode='aspectFill' background-size="cover"></image>
+                    <image lazy-load="true" src="{{item.image_url}}" mode='aspectFill' background-size="cover"></image>
                 </navigator>
             </swiper-item>
         </swiper>
@@ -71,7 +71,7 @@
         <view class='topic-container' wx:for="{{floorGoods}}" wx:key="id">
             <view class='banner-container' bindtap="goCategory" data-cateid="{{item.id}}"
                 wx:if="{{index_banner_img == 1}}">
-                <image mode='aspectFill' style="width:100%;height:{{item.height}}rpx" src='{{item.banner}}'>
+                <image lazy-load="true" mode='aspectFill' style="width:100%;height:{{item.height}}rpx" src='{{item.banner}}'>
                 </image>
                 <view class="bg" style="height:{{item.height}}rpx;line-height:{{item.height}}rpx;"></view>
                 <view class="text" style="height:{{item.height}}rpx;line-height:{{item.height}}rpx;">{{item.name}}
@@ -88,7 +88,7 @@
                     wx:for-index="iindex" wx:for-item="iitem" wx:key="id" wx:if="{{iindex < 9}}">
                     <navigator hover-class='none' class='navi-url' url="/pages/goods/goods?id={{iitem.id}}">
                         <view class="box">
-                            <image src="{{iitem.list_pic_url}}" class="image" >
+                            <image lazy-load="true" src="{{iitem.list_pic_url}}" class="image" >
                                 <view wx:if="{{iitem.is_new == 1}}" class='new-tag'>新品</view>
                             </image>
                             <!-- <view  class="image-view" style="background-image:url('{{iitem.list_pic_url}}')">
